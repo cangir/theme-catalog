@@ -45,12 +45,21 @@ class Category(db.Model):
         items = db.session.query(Category).all()
         return items
 
-    def add_item(name, slug, description):
+    def add(name, slug, description, count=0):
         item = Category(
             name=name,
             slug=slug,
             description=description,
-            count=0)
+            count=count)
+        db.session.add(item)
+        db.session.commit()
+
+    def update(name, slug, description, count):
+        item = Category(
+            name=name,
+            slug=slug,
+            description=description,
+            count=count)
         db.session.add(item)
         db.session.commit()
 

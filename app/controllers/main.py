@@ -22,7 +22,8 @@ from app.models.theme_author import ThemeAuthor
 @app.before_request
 def before_request_func():
     """Add Categories object to session"""
-    session['categories'] = [item.serialize for item in Category.get_items()]
+    session['session_categories'] = [
+        item.serialize for item in Category.get_items()]
 
 
 @app.errorhandler(404)
@@ -39,6 +40,7 @@ def home():
 
 @app.route("/category/<string:slug>", methods=["GET", "POST"])
 def category(slug):
+    """Retrieve items of the category"""
     category = Category.get_item_by_slug(slug)
     if category is not None:
         items = CategoryRelation.get_items_by_category_id(category.id)
@@ -66,14 +68,13 @@ def category_add():
             slug = slugify(request.form.get('name'))
         description = request.form.get('description')
 
-        item_exists = Category.get_item_by_slug(slug) is not None
-        if not item_exists:
+        category_exists = Category.get_item_by_slug(slug) is not None
+        if not category_exists:
             # Add new item to database
             item = Category.add_item(name,
                                      slug,
                                      description)
-
-            # Redirect to add category page after inserting item
+            # Redirect to add category page
             return redirect(url_for("category_add"))
         else:
             flash('Category already exists.')
@@ -84,10 +85,27 @@ def category_add():
                            )
 
 
-@app.route('/category/<int:id>/edit', methods=['GET', 'POST'])
+@app.route('/category/<int:category_id>/edit', methods=['GET', 'POST'])
 @login_required
-def category_edit(id):
-    return "Edit Category: " + str(id)
+def category_edit(category_id):
+    category = Category.get_item_by_id(category_id)
+    if category is None:
+        abort(404)
+    else:
+        if request.method == "POST":
+            if request.form["name"]:
+                category.name = request.form["name"]
+            if request.form["slug"]:
+                category.slug = request.form["slug"]
+            if request.form["description"]:
+                category.description = request.form["description"]
+
+            Category.update(name, slug, description)
+
+        return render_template("category/category-edit.html",
+                               category=category,
+                               categories=Category.get_items()
+                               )
 
 
 @app.route("/tag/<string:slug>", methods=["GET", "POST"])
