@@ -1,37 +1,30 @@
 {% extends "_layouts/default.html" %}
-{% block page_title %}Edit: {{ category.name }}{% endblock %}
+{% block page_title %}Add New Tag{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-sm-12 col-md-5">
             <section class="card shadow-sm rounded-1">
-                <form method="POST" action="{{ url_for("category_edit", category_id=category.id) }}">
+                <form method="POST" action="{{ url_for("tag_add") }}">
                     <div class="card-status bg-primary"></div>
                     <div class="card-header">
-                        <h3 class="card-title font-weight-bold">Edit category:</h3>
+                        <h3 class="card-title font-weight-bold">Add tag</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body pt-0">
                         <div class="form-group">
                             <label for="input_name">
-                                <strong>Category Name:</strong>
+                                <strong>Tag Name:</strong>
                             </label>
-                            <input id="input_name" type="text" name="name" class="form-control"
-                                value="{{ category.name }}" required maxlength="80">
+                            <input id="input_name" type="text" name="name" class="form-control" placeholder="Tag Name"
+                                required maxlength="80">
                         </div>
                         <div class="form-group">
                             <label for="input_slug">
                                 <strong>Slug:</strong>
                             </label>
-                            <input id="input_slug" type="text" name="slug" class="form-control"
-                                value="{{ category.slug }}" required maxlength="80">
-                        </div>
-                        <div class="form-group">
-                            <label for="input_description">
-                                <strong>Description:</strong>
-                            </label>
-                            <textarea class="form-control" id="input_description" rows="4" name="description"
-                                maxlength="250">{{ category.description }}</textarea>
+                            <input id="input_slug" type="text" name="slug" class="form-control" placeholder="Slug"
+                                maxlength="80">
                         </div>
                     </div>
                     <div class="card-footer">
@@ -40,7 +33,7 @@
                                     class="fa fa-hand-o-left mr-2"></i>Cancel</a>
                             <div class="ml-auto">
                                 <button type="submit" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-floppy-o mr-2"></i> Save
+                                    <i class="fa fa-floppy-o mr-2"></i>Save
                                 </button>
                             </div>
                         </div>
@@ -48,8 +41,8 @@
                 </form>
             </section>
         </div>
-        <div class="col-md-7">
-            {% include "_includes/category/edit.html" %}
+        <div class="col-sm-12 col-md-7">
+            {% include "_includes/tag/edit.html" %}
         </div>
     </div>
 </div>

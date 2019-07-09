@@ -71,9 +71,9 @@ def category_add():
         category_exists = Category.get_item_by_slug(slug) is not None
         if not category_exists:
             # Add new item to database
-            item = Category.add_item(name,
-                                     slug,
-                                     description)
+            item = Category.add(name,
+                                slug,
+                                description)
             # Redirect to add category page
             return redirect(url_for("category_add"))
         else:
@@ -93,14 +93,12 @@ def category_edit(category_id):
         abort(404)
     else:
         if request.method == "POST":
-            if request.form["name"]:
-                category.name = request.form["name"]
-            if request.form["slug"]:
-                category.slug = request.form["slug"]
-            if request.form["description"]:
-                category.description = request.form["description"]
+            category.name = request.form["name"]
+            category.slug = request.form["slug"]
+            category.description = request.form["description"]
 
-            Category.update(name, slug, description)
+            db.session.add(category)
+            db.session.commit()
 
         return render_template("category/category-edit.html",
                                category=category,
@@ -110,19 +108,67 @@ def category_edit(category_id):
 
 @app.route("/tag/<string:slug>", methods=["GET", "POST"])
 def tag(slug):
-    return "Return all items of selected tag: " + slug
+    """Retrieve items of the tag"""
+    tag = Tag.get_item_by_slug(slug)
+    if tag is not None:
+        items = TagRelation.get_items_by_tag_id(tag.id)
+        tags = Tag.get_items()
+    else:
+        abort(404)
+
+    return render_template("tag/tag.html",
+                           tags=tags,
+                           tag=tag,
+                           items=items
+                           )
 
 
 @app.route('/tag/add', methods=['GET', 'POST'])
 @login_required
 def tag_add():
-    return "Add Tag"
+    """Register a new tag"""
+
+    if request.method == "POST":
+        # Define variables
+        name = request.form.get('name')
+        slug = request.form.get('slug')
+        if request.form.get('slug') == "":
+            slug = slugify(request.form.get('name'))
+
+        tag_exists = Tag.get_item_by_slug(slug) is not None
+        if not tag_exists:
+            # Add new item to database
+            item = Tag.add(name,
+                           slug)
+            # Redirect to add tag page
+            return redirect(url_for("tag_add"))
+        else:
+            flash('Tag already exists.')
+
+    # Render tag-add.html and serve page
+    return render_template("tag/tag-add.html",
+                           tags=Tag.get_items()
+                           )
 
 
-@app.route('/tag/<int:id>/edit', methods=['GET', 'POST'])
+@app.route('/tag/<int:tag_id>/edit', methods=['GET', 'POST'])
 @login_required
-def tag_edit(slug):
-    return "Edit tag: " + slug
+def tag_edit(tag_id):
+    tag = Tag.get_item_by_id(tag_id)
+    if tag is None:
+        abort(404)
+    else:
+        if request.method == "POST":
+            tag.name = request.form["name"]
+            tag.slug = request.form["slug"]
+
+            db.session.add(tag)
+            db.session.commit()
+
+        return render_template("tag/tag-edit.html",
+                               tag=tag,
+                               tags=Tag.get_items()
+                               )
 
 
 @app.route("/theme-author/<string:slug>", methods=["GET", "POST"])
