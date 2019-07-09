@@ -28,6 +28,29 @@ class Tag(db.Model):
             "count": self.count
         }
 
+    def get_item_by_id(id):
+        item = db.session.query(Tag) \
+            .filter_by(id=id).one_or_none()
+        return item
+
+    def get_item_by_slug(slug):
+        item = db.session.query(Tag) \
+            .filter_by(slug=slug).one_or_none()
+        return item
+
+    def get_items():
+        items = db.session.query(Tag) \
+            .order_by(Tag.slug).all()
+        return items
+
+    def add(name, slug, count=0):
+        item = Tag(
+            name=name,
+            slug=slug,
+            count=count)
+        db.session.add(item)
+        db.session.commit()
+
 
 class TagRelation(db.Model):
     __tablename__ = "tag_relation"
@@ -57,3 +80,8 @@ class TagRelation(db.Model):
             "tag_id": self.tag_id,
             "theme_id": self.theme_id
         }
+
+    def get_items_by_tag_id(tag_id):
+        items = db.session.query(TagRelation) \
+            .filter_by(tag_id=tag_id).all()
+        return items

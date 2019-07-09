@@ -13,7 +13,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                             {% for category in session.get('session_categories') %}
-                            {% if category.count > 0 %}
+                            {% if category.count == 0 %}
                             <a class="dropdown-item d-flex" id="cat_{{ category.id }}"
                                 href="{{ url_for("category", slug=category.slug) }}">
                                 <span class="mr-auto">{{ category.name }}</span>
@@ -40,6 +40,9 @@
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                 <a class="dropdown-item" href="{{ url_for("category_add") }}">
                                     <i class="dropdown-icon fe fe-plus mr-2"></i>Categories
+                                </a>
+                                <a class="dropdown-item" href="{{ url_for("tag_add") }}">
+                                    <i class="dropdown-icon fe fe-plus mr-2"></i>Tags
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url_for("logout") }}">
