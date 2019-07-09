@@ -31,6 +31,29 @@ class Category(db.Model):
             "count": self.count
         }
 
+    def get_item_by_id(id):
+        item = db.session.query(Category) \
+            .filter_by(id=id).one_or_none()
+        return item
+
+    def get_item_by_slug(slug):
+        item = db.session.query(Category) \
+            .filter_by(slug=slug).one_or_none()
+        return item
+
+    def get_items():
+        items = db.session.query(Category).all()
+        return items
+
+    def add_item(name, slug, description):
+        item = Category(
+            name=name,
+            slug=slug,
+            description=description,
+            count=0)
+        db.session.add(item)
+        db.session.commit()
+
 
 class CategoryRelation(db.Model):
     """
@@ -62,3 +85,8 @@ class CategoryRelation(db.Model):
             "category_id": self.category_id,
             "theme_id": self.theme_id
         }
+
+    def get_items_by_category_id(category_id):
+        items = db.session.query(CategoryRelation) \
+            .filter_by(category_id=category_id).all()
+        return items

@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from flask import render_template, flash, redirect, url_for, session, request
+from flask import abort, flash, redirect, render_template, request
+from flask import session, url_for
 from flask_login import login_required
 from flask import jsonify
 from slugify import slugify
@@ -18,15 +19,38 @@ from app.models.theme import Theme
 from app.models.theme_author import ThemeAuthor
 
 
+@app.before_request
+def before_request_func():
+    """Add Categories object to session"""
+    session['categories'] = [item.serialize for item in Category.get_items()]
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    """Render Error 404 Page"""
+    return render_template('error/404.html'), 404
+
+
 @app.route("/")
 def home():
-    # Render homepage
-    return render_template("home.html", users=helper.get_users())
+    """Render home page"""
+    return render_template("home.html")
 
 
 @app.route("/category/<string:slug>", methods=["GET", "POST"])
 def category(slug):
-    return "Return Category Page"
+    category = Category.get_item_by_slug(slug)
+    if category is not None:
+        items = CategoryRelation.get_items_by_category_id(category.id)
+        categories = Category.get_items()
+    else:
+        abort(404)
+
+    return render_template("category/category.html",
+                           categories=categories,
+                           category=category,
+                           items=items
+                           )
 
 
 @app.route('/category/add', methods=['GET', 'POST'])
@@ -42,24 +66,21 @@ def category_add():
             slug = slugify(request.form.get('name'))
         description = request.form.get('description')
 
-        category_exists = db.session.query(Category.id) \
-            .filter_by(slug=slug).scalar() is not None
-        if not category_exists:
+        item_exists = Category.get_item_by_slug(slug) is not None
+        if not item_exists:
             # Add new item to database
-            new_item = Category(
-                name=name,
-                slug=slug,
-                description=description,
-                count=0)
-            db.session.add(new_item)
-            db.session.commit()
+            item = Category.add_item(name,
+                                     slug,
+                                     description)
 
-        # Redirect to add category page after inserting item
-        return redirect(url_for("category_add"))
+            # Redirect to add category page after inserting item
+            return redirect(url_for("category_add"))
+        else:
+            flash('Category already exists.')
 
     # Render category-add.html and serve page
     return render_template("category/category-add.html",
-                           categories=Category.get_categories()
+                           categories=Category.get_items()
                            )
 
 

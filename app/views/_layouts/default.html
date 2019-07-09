@@ -12,12 +12,13 @@
                             Themes
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                            {% for category in categories %}
+                            {% for category in session.get('categories') %}
                             {% if category.count > 0 %}
-                            <a class="dropdown-item" id="cat_{{ category.id }}"
+                            <a class="dropdown-item d-flex" id="cat_{{ category.id }}"
                                 href="{{ url_for("category", slug=category.slug) }}">
-                                {{ category.name }}
-                                <span class="badge badge-secondary badge-pill">{{ category.count }}</span>
+                                <span class="mr-auto">{{ category.name }}</span>
+                                <span
+                                    class="badge badge-pill badge-secondary align-self-center ml-4">{{ category.count }}</span>
                             </a>
                             {% endif %}
                             {% endfor %}

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from app import db
-from app.models.user import User  # noqa: E402
+from app.models.user import User
 from app.models.license_type import LicenseType
 from app.models.theme_author import ThemeAuthor
 import datetime
