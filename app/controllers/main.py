@@ -38,23 +38,6 @@ def home():
     return render_template("home.html")
 
 
-@app.route("/category/<string:slug>", methods=["GET", "POST"])
-def category(slug):
-    """Retrieve items of the category"""
-    category = Category.get_item_by_slug(slug)
-    if category is not None:
-        items = CategoryRelation.get_items_by_category_id(category.id)
-        categories = Category.get_items()
-    else:
-        abort(404)
-
-    return render_template("category/category.html",
-                           categories=categories,
-                           category=category,
-                           items=items
-                           )
-
-
 @app.route('/category/add', methods=['GET', 'POST'])
 @login_required
 def category_add():
@@ -106,19 +89,16 @@ def category_edit(category_id):
                                )
 
 
-@app.route("/tag/<string:slug>", methods=["GET", "POST"])
-def tag(slug):
-    """Retrieve items of the tag"""
-    tag = Tag.get_item_by_slug(slug)
-    if tag is not None:
-        items = TagRelation.get_items_by_tag_id(tag.id)
-        tags = Tag.get_items()
-    else:
-        abort(404)
+@app.route("/category/<string:slug>", methods=["GET", "POST"])
+def category(slug):
+    """Retrieve items of the category"""
+    category = Category.get_item_or_404(slug)
+    categories = Category.get_items()
+    items = CategoryRelation.get_items_by_category_id(category.id)
 
-    return render_template("tag/tag.html",
-                           tags=tags,
-                           tag=tag,
+    return render_template("category/category.html",
+                           categories=categories,
+                           category=category,
                            items=items
                            )
 
@@ -169,6 +149,20 @@ def tag_edit(tag_id):
                                tag=tag,
                                tags=Tag.get_items()
                                )
+
+
+@app.route("/tag/<string:slug>", methods=["GET", "POST"])
+def tag(slug):
+    """Retrieve items of the tag"""
+    tag = Tag.get_item_by_slug(slug)
+    items = TagRelation.get_items_by_tag_id(tag.id)
+    tags = Tag.get_items()
+
+    return render_template("tag/tag.html",
+                           tags=tags,
+                           tag=tag,
+                           items=items
+                           )
 
 
 @app.route("/theme-author/<string:slug>", methods=["GET", "POST"])

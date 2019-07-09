@@ -41,6 +41,19 @@ class Category(db.Model):
             .filter_by(slug=slug).one_or_none()
         return item
 
+    def get_item_or_404(slug):
+        """Get item by slug
+
+        Arguments:
+            slug {string}
+
+        Returns:
+            [object] -- Category
+        """
+        item = db.session.query(Category) \
+            .filter_by(slug=slug).first_or_404()
+        return item
+
     def get_items():
         items = db.session.query(Category) \
             .order_by(Category.slug).all()

@@ -30,12 +30,12 @@ class Tag(db.Model):
 
     def get_item_by_id(id):
         item = db.session.query(Tag) \
-            .filter_by(id=id).one_or_none()
+            .filter_by(id=id).first_or_404()
         return item
 
     def get_item_by_slug(slug):
         item = db.session.query(Tag) \
-            .filter_by(slug=slug).one_or_none()
+            .filter_by(slug=slug).first_or_404()
         return item
 
     def get_items():

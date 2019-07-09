@@ -29,3 +29,27 @@ class ThemeAuthor(db.Model):
             "github_username": self.github_username,
             "count": self.count
         }
+
+    def get_item_by_id(id):
+        item = db.session.query(ThemeAuthor) \
+            .filter_by(id=id).first_or_404()
+        return item
+
+    def get_item_by_slug(slug):
+        item = db.session.query(ThemeAuthor) \
+            .filter_by(slug=slug).first_or_404()
+        return item
+
+    def get_items():
+        items = db.session.query(ThemeAuthor) \
+            .order_by(ThemeAuthor.slug).all()
+        return items
+
+    def add(name, slug, github_username, count=0):
+        item = ThemeAuthor(
+            name=name,
+            slug=slug,
+            github_username=github_username,
+            count=count)
+        db.session.add(item)
+        db.session.commit()
