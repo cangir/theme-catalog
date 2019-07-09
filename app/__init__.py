@@ -29,12 +29,14 @@ manager.add_command("runserver", Server(
 
 db = SQLAlchemy(app)
 
-from app.models.user import User  # noqa: E402
-from app.models.theme import Category, CategoryRelation  # noqa: E402
-from app.models.theme import Tag, TagRelation  # noqa: E402
-from app.models.theme import LicenseType  # noqa: E402
-from app.models.theme import Theme  # noqa: E402
-from app.models.theme import ThemeAuthor  # noqa: E402
+from .models.user import User  # noqa: E402
+from .models.category import Category  # noqa: E402
+from .models.category import CategoryRelation  # noqa: E402
+from .models.tag import Tag  # noqa: E402
+from .models.tag import TagRelation  # noqa: E402
+from .models.license_type import LicenseType  # noqa: E402
+from .models.theme import Theme  # noqa: E402
+from .models.theme_author import ThemeAuthor  # noqa: E402
 
 # import Controllers
 from app.controllers import auth  # noqa: E402

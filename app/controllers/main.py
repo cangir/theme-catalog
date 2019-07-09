@@ -9,29 +9,19 @@ from slugify import slugify
 from app import app, db
 from config import Config
 from app.models.user import User
-from app.models.theme import Category, CategoryRelation
-from app.models.theme import Tag, TagRelation
-from app.models.theme import LicenseType
+from app.models.category import Category
+from app.models.category import CategoryRelation
+from app.models.tag import Tag
+from app.models.tag import TagRelation
+from app.models.license_type import LicenseType
 from app.models.theme import Theme
-from app.models.theme import ThemeAuthor
-
-
-def get_categories():
-    categories = db.session.query(Category) \
-        .order_by(Category.slug).all()
-    return categories
-
-
-def get_users():
-    items = db.session.query(User) \
-        .order_by(User.name).all()
-    return items
+from app.models.theme_author import ThemeAuthor
 
 
 @app.route("/")
 def home():
     # Render homepage
-    return render_template("home.html", users=users)
+    return render_template("home.html", users=User.get_users())
 
 
 @app.route('/category/add', methods=['GET', 'POST'])
@@ -64,7 +54,7 @@ def category_add():
 
     # Render category-add.html and serve page
     return render_template("category/category-add.html",
-                           categories=get_categories()
+                           categories=Category.get_categories()
                            )
 
 

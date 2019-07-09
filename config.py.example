@@ -3,7 +3,7 @@ import os
 
 
 class Config(object):
-    """Coniguration Details"""
+    """Configuration Details"""
     # Project details
     CREATOR = "Ahmet Cangir"
     APPLICATION_NAME = "Theme Catalog"
