@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""
-description: Main controller
-copyright: (c) 2019 by Ahmet Cangir
-license: https://github.com/cangir/theme-catalog/blob/master/LICENSE
-"""
+
+# Main controller
+#
+# author: Ahmet Cangir
+# github: https://github.com/cangir
+# license: https://github.com/cangir/theme-catalog/blob/master/LICENSE
+
 
 from flask import abort, flash, redirect, render_template, request
 from flask import session, url_for

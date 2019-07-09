@@ -7,9 +7,9 @@
 # github: https://github.com/cangir
 # license: https://github.com/cangir/theme-catalog/blob/master/LICENSE
 
-# --------------------------------------
-# Edit this file according to your needs
-# --------------------------------------
+# ------------------------------------------
+# Edit this file according the project needs
+# ------------------------------------------
 
 import os
 
