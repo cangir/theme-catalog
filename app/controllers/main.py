@@ -233,21 +233,69 @@ def license_type(slug):
                            )
 
 
-@app.route("/theme-author/<string:slug>", methods=["GET", "POST"])
-def theme_author(slug):
-    return "Return theme author: " + slug
-
-
 @app.route('/theme-author/add', methods=['GET', 'POST'])
 @login_required
 def theme_author_add():
-    return "Register a new theme author"
+    """Register a new theme_author"""
+
+    if request.method == "POST":
+        # Define variables
+        name = request.form.get('name')
+        slug = request.form.get('slug')
+        if request.form.get('slug') == "":
+            slug = slugify(request.form.get('name'))
+        github_username = request.form.get('github_username')
+
+        theme_author_exists = ThemeAuthor.get_item_by_slug(slug) is not None
+        if not theme_author_exists:
+            # Add new item to database
+            item = ThemeAuthor.add(name,
+                                   slug,
+                                   github_username)
+            # Redirect to add theme_author page
+            return redirect(url_for("theme_author_add"))
+        else:
+            flash('ThemeAuthor already exists.')
+
+    # Render theme_author-add.html and serve page
+    return render_template("theme-author/theme-author-add.html",
+                           theme_authors=ThemeAuthor.get_items()
+                           )
 
 
-@app.route('/theme-author/<int:id>/edit', methods=['GET', 'POST'])
+@app.route('/theme-author/<int:theme_author_id>/edit', methods=['GET', 'POST'])
 @login_required
-def theme_author_edit(slug):
-    return "Edit theme author: " + slug
+def theme_author_edit(theme_author_id):
+    theme_author = ThemeAuthor.get_item_by_id(theme_author_id)
+    if theme_author is None:
+        abort(404)
+    else:
+        if request.method == "POST":
+            theme_author.name = request.form["name"]
+            theme_author.slug = request.form["slug"]
+            theme_author.github_username = request.form["github_username"]
+
+            db.session.add(theme_author)
+            db.session.commit()
+
+        return render_template("theme-author/theme-author-edit.html",
+                               theme_author=theme_author,
+                               theme_authors=ThemeAuthor.get_items()
+                               )
+
+
+@app.route("/theme-author/<string:slug>", methods=["GET", "POST"])
+def theme_author(slug):
+    """Retrieve items of the theme_author"""
+    theme_author = ThemeAuthor.get_item_or_404(slug)
+    theme_authors = ThemeAuthor.get_items()
+    items = ThemeAuthorRelation.get_items_by_theme_author_id(theme_author.id)
+
+    return render_template("theme-author/theme-author.html",
+                           theme_authors=theme_authors,
+                           theme_author=theme_author,
+                           items=items
+                           )
 
 
 @app.route('/theme/<string:slug>')

@@ -1,9 +1,9 @@
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">License Types</h3>
+        <h3 class="card-title">Theme Authors</h3>
         <div class="card-options">
-            <a href="{{ url_for("license_type_add") }}" class="btn btn-primary btn-sm">
-                <i class="fa fa-plus-circle mr-2"></i>New License Type
+            <a href="{{ url_for("theme_author_add") }}" class="btn btn-primary btn-sm">
+                <i class="fa fa-plus-circle mr-2"></i>New Theme Author
             </a>
         </div>
     </div>
@@ -11,33 +11,39 @@
         <table class="table card-table table-striped">
             <thead>
                 <tr>
+
                     <th>Name</th>
                     <th>Slug</th>
                     <th class="text-right">Count</th>
+
                 </tr>
             </thead>
             <tbody>
-                {% for license_type in license_types %}
+                {% for theme_author in theme_authors %}
                 <tr>
+
                     <td>
                         <h5 class="m-0"><a
-                                href="{{ url_for("license_type_edit", license_type_id=license_type.id) }}">{{ license_type.name }}</a>
+                                href="{{ url_for("theme_author_edit", theme_author_id=theme_author.id) }}">{{ theme_author.name }}</a>
                         </h5>
                         <div class="card-options">
-                            <a href="{{ url_for("license_type_edit", license_type_id=license_type.id) }}"
+                            <a href="{{ url_for("theme_author_edit", theme_author_id=theme_author.id) }}"
                                 class="small text-primary ml-0 mr-2">Edit</a>
                             <a href="javascript:void(0)" class="small text-danger">Delete</a>
                         </div>
+
                     </td>
-                    <td>{{ license_type.slug }}</td>
+                    <td>{{ theme_author.slug }}</td>
                     <td class="text-right">
-                        {% if license_type.count == 0 %}
-                        <span class="btn btn-sm btn-secondary disabled">{{ license_type.count }}</span>
+                        {% if theme_author.count == 0 %}
+                        <span class="btn btn-sm btn-secondary disabled">{{ theme_author.count }}</span>
                         {% else %}
-                        <a href="{{ url_for("license_type", slug=license_type.slug) }}" class="btn btn-sm btn-dark"
-                            target="_blank">{{ license_type.count }}</a>
+                        <a href="{{ url_for("theme_author", slug=theme_author.slug) }}" class="btn btn-sm btn-dark"
+                            target="_blank">{{ theme_author.count }}</a>
                         {% endif %}
+
                     </td>
+
                 </tr>
                 {% endfor %}
             </tbody>

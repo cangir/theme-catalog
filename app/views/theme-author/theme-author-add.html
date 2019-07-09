@@ -1,0 +1,60 @@
+{% extends "_layouts/default.html" %}
+{% block page_title %}Add New Theme Author{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-5">
+            <section class="card shadow-sm rounded-1">
+                <form method="POST" action="{{ url_for("theme_author_add") }}">
+                    <div class="card-status bg-primary"></div>
+                    <div class="card-header">
+                        <h3 class="card-title font-weight-bold">Add Theme Author</h3>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="form-group">
+                            <label for="input_name">
+                                <strong>Theme Author Name:</strong>
+                            </label>
+                            <input id="input_name" type="text" name="name" class="form-control"
+                                placeholder="Theme Author Name" required maxlength="80">
+                        </div>
+                        <div class="form-group">
+                            <label for="input_slug">
+                                <strong>Slug:</strong>
+                            </label>
+                            <input id="input_slug" type="text" name="slug" class="form-control" placeholder="Slug"
+                                maxlength="80">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Github Username</label>
+                            <div class="input-group">
+                                <span class="input-group-prepend" id="basic-addon3">
+                                    <span class="input-group-text">https://github.com/</span>
+                                </span>
+                                <input type="text" class="form-control" id="github_username"
+                                    aria-describedby="basic-addon3" name="github_username">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-options d-flex">
+                            <a href="/" class="btn btn-secondary btn-sm"><i
+                                    class="fa fa-hand-o-left mr-2"></i>Cancel</a>
+                            <div class="ml-auto">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-floppy-o mr-2"></i>Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <div class="col-sm-12 col-md-7">
+            {% include "_includes/theme-author/edit.html" %}
+        </div>
+    </div>
+</div>
+{% endblock %}
