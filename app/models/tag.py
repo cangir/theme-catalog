@@ -29,21 +29,66 @@ class Tag(db.Model):
         }
 
     def get_item_by_id(id):
+        """Get one tag item by id or None
+
+        Argument:
+
+            id {integer}
+
+        Return:
+
+            Tag item or None
+        """
         item = db.session.query(Tag) \
-            .filter_by(id=id).first_or_404()
+            .filter_by(id=id).one_or_none()
         return item
 
     def get_item_by_slug(slug):
+        """Get item by slug or None
+
+        Argument:
+
+            slug {string}
+
+        Return:
+
+            Tag item or None
+        """
+        item = db.session.query(Tag) \
+            .filter_by(slug=slug).one_or_none()
+        return item
+
+    def get_item_or_404(slug):
+        """Get item by slug or 404
+
+        Argument:
+
+            slug {string}
+
+        Return:
+
+            Tag item or 404
+        """
         item = db.session.query(Tag) \
             .filter_by(slug=slug).first_or_404()
         return item
 
     def get_items():
+        """Get and return all categories"""
         items = db.session.query(Tag) \
             .order_by(Tag.slug).all()
         return items
 
     def add(name, slug, count=0):
+        """Add tag item
+
+        Arguments:
+            name {string} -- Title
+            slug {string} -- Slug
+
+        Keyword Arguments:
+            count {int} -- Count related items (default: {0})
+        """
         item = Tag(
             name=name,
             slug=slug,

@@ -1,0 +1,50 @@
+{% extends "_layouts/default.html" %}
+{% block page_title %}Edit: {{ license_type.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <section class="card shadow-sm rounded-1">
+                <form method="POST" action="{{ url_for("license_type_edit", license_type_id=license_type.id) }}">
+                    <div class="card-status bg-primary"></div>
+                    <div class="card-header">
+                        <h3 class="card-title"><b>Edit License Type:</b> {{ license_type.name }}
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="input_name">
+                                <strong>License Type Name:</strong>
+                            </label>
+                            <input id="input_name" type="text" name="name" class="form-control"
+                                value="{{ license_type.name }}" required maxlength="80">
+                        </div>
+                        <div class="form-group">
+                            <label for="input_slug">
+                                <strong>Slug:</strong>
+                            </label>
+                            <input id="input_slug" type="text" name="slug" class="form-control"
+                                value="{{ license_type.slug }}" required maxlength="80">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-options d-flex">
+                            <a href="/" class="btn btn-secondary btn-sm"><i
+                                    class="fa fa-hand-o-left mr-2"></i>Cancel</a>
+                            <div class="ml-auto">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-floppy-o mr-2"></i> Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <div class="col-md-7">
+            {% include "_includes/license-type/edit.html" %}
+        </div>
+    </div>
+</div>
+{% endblock %}

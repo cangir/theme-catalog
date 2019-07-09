@@ -1,47 +1,41 @@
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Tags</h3>
+        <h3 class="card-title">License Types</h3>
         <div class="card-options">
-            <a href="{{ url_for("tag_add") }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle mr-2"></i> New
-                Tag</a>
+            <a href="{{ url_for("license_type_add") }}" class="btn btn-primary btn-sm">New License Type</a>
         </div>
     </div>
     <div class="table-responsive">
         <table class="table card-table table-striped">
             <thead>
                 <tr>
-
                     <th>Name</th>
                     <th>Slug</th>
                     <th class="text-right">Count</th>
-
                 </tr>
             </thead>
             <tbody>
-                {% for tag in tags %}
+                {% for license_type in license_types %}
                 <tr>
-
                     <td>
-                        <h5 class="m-0"><a href="{{ url_for("tag_edit", tag_id=tag.id) }}">{{ tag.name }}</a>
+                        <h5 class="m-0"><a
+                                href="{{ url_for("license_type_edit", license_type_id=license_type.id) }}">{{ license_type.name }}</a>
                         </h5>
                         <div class="card-options">
-                            <a href="{{ url_for("tag_edit", tag_id=tag.id) }}"
+                            <a href="{{ url_for("license_type_edit", license_type_id=license_type.id) }}"
                                 class="small text-primary ml-0 mr-2">Edit</a>
                             <a href="javascript:void(0)" class="small text-danger">Delete</a>
                         </div>
-
                     </td>
-                    <td>{{ tag.slug }}</td>
+                    <td>{{ license_type.slug }}</td>
                     <td class="text-right">
-                        {% if tag.count == 0 %}
-                        <span class="btn btn-sm btn-secondary disabled">{{ tag.count }}</span>
+                        {% if license_type.count == 0 %}
+                        <span class="btn btn-sm btn-secondary disabled">{{ license_type.count }}</span>
                         {% else %}
-                        <a href="{{ url_for("tag", slug=tag.slug) }}" class="btn btn-sm btn-dark"
-                            target="_blank">{{ tag.count }}</a>
+                        <a href="{{ url_for("license_type", slug=license_type.slug) }}" class="btn btn-sm btn-dark"
+                            target="_blank">{{ license_type.count }}</a>
                         {% endif %}
-
                     </td>
-
                 </tr>
                 {% endfor %}
             </tbody>

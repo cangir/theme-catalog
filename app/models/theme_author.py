@@ -31,21 +31,67 @@ class ThemeAuthor(db.Model):
         }
 
     def get_item_by_id(id):
+        """Get one theme_author item by id or None
+
+        Argument:
+
+            id {integer}
+
+        Return:
+
+            ThemeAuthor item or None
+        """
         item = db.session.query(ThemeAuthor) \
-            .filter_by(id=id).first_or_404()
+            .filter_by(id=id).one_or_none()
         return item
 
     def get_item_by_slug(slug):
+        """Get item by slug or None
+
+        Argument:
+
+            slug {string}
+
+        Return:
+
+            ThemeAuthor item or None
+        """
+        item = db.session.query(ThemeAuthor) \
+            .filter_by(slug=slug).one_or_none()
+        return item
+
+    def get_item_or_404(slug):
+        """Get item by slug or 404
+
+        Argument:
+
+            slug {string}
+
+        Return:
+
+            ThemeAuthor item or 404
+        """
         item = db.session.query(ThemeAuthor) \
             .filter_by(slug=slug).first_or_404()
         return item
 
     def get_items():
+        """Get and return all categories"""
         items = db.session.query(ThemeAuthor) \
             .order_by(ThemeAuthor.slug).all()
         return items
 
     def add(name, slug, github_username, count=0):
+        """Add theme_author item
+
+        Arguments:
+            name {string} -- Title
+            slug {string} -- Slug
+            github_username {string} -- Github username
+
+        Keyword Arguments:
+            count {int} -- Count related items (default: {0})
+        """
         item = ThemeAuthor(
             name=name,
             slug=slug,

@@ -1,5 +1,11 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+"""
+    Main controller qile.
+
+    :copyright: (c) 2019 by Ahmet Cangir.
+    :license: https://github.com/cangir/theme-catalog/blob/master/LICENSE
+"""
 
 from flask import abort, flash, redirect, render_template, request
 from flask import session, url_for
@@ -165,6 +171,68 @@ def tag(slug):
                            )
 
 
+@app.route('/license-type/add', methods=['GET', 'POST'])
+@login_required
+def license_type_add():
+    """Register a new license_type"""
+
+    if request.method == "POST":
+        # Define variables
+        name = request.form.get('name')
+        slug = request.form.get('slug')
+        if request.form.get('slug') == "":
+            slug = slugify(request.form.get('name'))
+
+        license_type_exists = LicenseType.get_item_by_slug(slug) is not None
+        if not license_type_exists:
+            # Add new item to database
+            item = LicenseType.add(name,
+                                   slug)
+            # Redirect to add license_type page
+            return redirect(url_for("license_type_add"))
+        else:
+            flash('LicenseType already exists.')
+
+    # Render license_type-add.html and serve page
+    return render_template("license-type/license-type-add.html",
+                           license_types=LicenseType.get_items()
+                           )
+
+
+@app.route('/license-type/<int:license_type_id>/edit', methods=['GET', 'POST'])
+@login_required
+def license_type_edit(license_type_id):
+    license_type = LicenseType.get_item_by_id(license_type_id)
+    if license_type is None:
+        abort(404)
+    else:
+        if request.method == "POST":
+            license_type.name = request.form["name"]
+            license_type.slug = request.form["slug"]
+
+            db.session.add(license_type)
+            db.session.commit()
+
+        return render_template("license-type/license-type-edit.html",
+                               license_type=license_type,
+                               license_types=LicenseType.get_items()
+                               )
+
+
+@app.route("/license-type/<string:slug>", methods=["GET", "POST"])
+def license_type(slug):
+    """Retrieve items of the license_type"""
+    license_type = LicenseType.get_item_or_404(slug)
+    license_types = LicenseType.get_items()
+    items = LicenseTypeRelation.get_items_by_license_type_id(license_type.id)
+
+    return render_template("license-type/license-type.html",
+                           license_types=license_types,
+                           license_type=license_type,
+                           items=items
+                           )
+
+
 @app.route("/theme-author/<string:slug>", methods=["GET", "POST"])
 def theme_author(slug):
     return "Return theme author: " + slug
@@ -180,23 +248,6 @@ def theme_author_add():
 @login_required
 def theme_author_edit(slug):
     return "Edit theme author: " + slug
-
-
-@app.route("/license-type/<string:slug>", methods=["GET", "POST"])
-def license_type(slug):
-    return "Return License Type: " + slug
-
-
-@app.route('/license-type/add', methods=['GET', 'POST'])
-@login_required
-def license_type_add():
-    return "Register a new License Type"
-
-
-@app.route('/license-type/<int:id>/edit', methods=['GET', 'POST'])
-@login_required
-def license_type_edit(slug):
-    return "Edit License Type: " + slug
 
 
 @app.route('/theme/<string:slug>')

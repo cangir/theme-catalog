@@ -32,34 +32,67 @@ class Category(db.Model):
         }
 
     def get_item_by_id(id):
+        """Get item by id or 404
+
+        Argument:
+
+            id {integer}
+
+        Return:
+
+            Category item or None
+        """
         item = db.session.query(Category) \
             .filter_by(id=id).one_or_none()
         return item
 
     def get_item_by_slug(slug):
+        """Get item by slug or None
+
+        Argument:
+
+            slug {string}
+
+        Return:
+
+            Category item or None
+        """
         item = db.session.query(Category) \
             .filter_by(slug=slug).one_or_none()
         return item
 
     def get_item_or_404(slug):
-        """Get item by slug
+        """Get item by slug or 404
 
-        Arguments:
+        Argument:
+
             slug {string}
 
-        Returns:
-            [object] -- Category
+        Return:
+
+            Category item or 404
         """
         item = db.session.query(Category) \
             .filter_by(slug=slug).first_or_404()
         return item
 
     def get_items():
+        """Get and return all categories"""
         items = db.session.query(Category) \
             .order_by(Category.slug).all()
         return items
 
     def add(name, slug, description, count=0):
+        """Add category item
+
+        Arguments:
+            name {string} -- Title
+            slug {string} -- Slug
+            description {string} -- Description
+
+        Keyword Arguments:
+            count {int} -- Count related items (default: {0})
+        """
         item = Category(
             name=name,
             slug=slug,
