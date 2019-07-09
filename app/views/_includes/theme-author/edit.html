@@ -11,17 +11,14 @@
         <table class="table card-table table-striped">
             <thead>
                 <tr>
-
                     <th>Name</th>
                     <th>Slug</th>
                     <th class="text-right">Count</th>
-
                 </tr>
             </thead>
             <tbody>
                 {% for theme_author in theme_authors %}
                 <tr>
-
                     <td>
                         <h5 class="m-0"><a
                                 href="{{ url_for("theme_author_edit", theme_author_id=theme_author.id) }}">{{ theme_author.name }}</a>
@@ -31,7 +28,6 @@
                                 class="small text-primary ml-0 mr-2">Edit</a>
                             <a href="javascript:void(0)" class="small text-danger">Delete</a>
                         </div>
-
                     </td>
                     <td>{{ theme_author.slug }}</td>
                     <td class="text-right">
@@ -41,9 +37,7 @@
                         <a href="{{ url_for("theme_author", slug=theme_author.slug) }}" class="btn btn-sm btn-dark"
                             target="_blank">{{ theme_author.count }}</a>
                         {% endif %}
-
                     </td>
-
                 </tr>
                 {% endfor %}
             </tbody>

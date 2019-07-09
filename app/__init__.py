@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# author: Ahmet Cangir
+# github: https://github.com/cangir
+# license: https://github.com/cangir/theme-catalog/blob/master/LICENSE
+
 import os
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy

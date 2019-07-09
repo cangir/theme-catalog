@@ -1,4 +1,16 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# Configuration
+#
+# author: Ahmet Cangir
+# github: https://github.com/cangir
+# license: https://github.com/cangir/theme-catalog/blob/master/LICENSE
+
+# --------------------------------------
+# Edit this file according to your needs
+# --------------------------------------
+
 import os
 
 

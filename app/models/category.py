@@ -1,4 +1,12 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# Category Model
+#
+# author: Ahmet Cangir
+# github: https://github.com/cangir
+# license: https://github.com/cangir/theme-catalog/blob/master/LICENSE
+
 from app import db
 from app.models.theme import Theme
 
@@ -32,7 +40,7 @@ class Category(db.Model):
         }
 
     def get_item_by_id(id):
-        """Get item by id or 404
+        """Get one category item by id or None
 
         Argument:
 

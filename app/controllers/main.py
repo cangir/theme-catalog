@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
-    Main controller qile.
-
-    :copyright: (c) 2019 by Ahmet Cangir.
-    :license: https://github.com/cangir/theme-catalog/blob/master/LICENSE
+description: Main controller
+copyright: (c) 2019 by Ahmet Cangir
+license: https://github.com/cangir/theme-catalog/blob/master/LICENSE
 """
 
 from flask import abort, flash, redirect, render_template, request

@@ -1,4 +1,12 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# User Model
+#
+# author: Ahmet Cangir
+# github: https://github.com/cangir
+# license: https://github.com/cangir/theme-catalog/blob/master/LICENSE
+
 from flask_login import UserMixin
 from app import db
 

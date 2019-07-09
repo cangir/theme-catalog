@@ -11,17 +11,14 @@
         <table class="table card-table table-striped">
             <thead>
                 <tr>
-
                     <th>Name</th>
                     <th>Slug</th>
                     <th class="text-right">Count</th>
-
                 </tr>
             </thead>
             <tbody>
                 {% for tag in tags %}
                 <tr>
-
                     <td>
                         <h5 class="m-0"><a href="{{ url_for("tag_edit", tag_id=tag.id) }}">{{ tag.name }}</a>
                         </h5>
@@ -30,7 +27,6 @@
                                 class="small text-primary ml-0 mr-2">Edit</a>
                             <a href="javascript:void(0)" class="small text-danger">Delete</a>
                         </div>
-
                     </td>
                     <td>{{ tag.slug }}</td>
                     <td class="text-right">
@@ -40,9 +36,7 @@
                         <a href="{{ url_for("tag", slug=tag.slug) }}" class="btn btn-sm btn-dark"
                             target="_blank">{{ tag.count }}</a>
                         {% endif %}
-
                     </td>
-
                 </tr>
                 {% endfor %}
             </tbody>
