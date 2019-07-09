@@ -21,11 +21,10 @@
                 <tr>
 
                     <td>
-                        <h5 class="m-0"><a
-                                href="{{ url_for("category_edit", category_id=category.id) }}">{{ category.name }}</a>
+                        <h5 class="m-0"><a href="{{ url_for("category_edit", id=category.id) }}">{{ category.name }}</a>
                         </h5>
                         <div class="card-options">
-                            <a href="{{ url_for("category_edit", category_id=category.id) }}"
+                            <a href="{{ url_for("category_edit", id=category.id) }}"
                                 class="small text-primary ml-0 mr-2">Edit</a>
                             <a href="javascript:void(0)" class="small text-danger">Delete</a>
                         </div>

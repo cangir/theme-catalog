@@ -28,11 +28,6 @@ class Tag(db.Model):
             "count": self.count
         }
 
-    def get_tags():
-        tags = db.session.query(Tag) \
-            .order_by(Tag.slug).all()
-        return tags
-
 
 class TagRelation(db.Model):
     __tablename__ = "tag_relation"

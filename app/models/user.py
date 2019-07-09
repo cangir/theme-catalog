@@ -29,8 +29,3 @@ class User(UserMixin, db.Model):
             "email": self.email,
             "avatar": self.avatar
         }
-
-    def get_users():
-        items = db.session.query(User) \
-            .order_by(User.name).all()
-        return items

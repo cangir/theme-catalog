@@ -21,7 +21,12 @@ from app.models.theme_author import ThemeAuthor
 @app.route("/")
 def home():
     # Render homepage
-    return render_template("home.html", users=User.get_users())
+    return render_template("home.html", users=helper.get_users())
+
+
+@app.route("/category/<string:slug>", methods=["GET", "POST"])
+def category(slug):
+    return "Return Category Page"
 
 
 @app.route('/category/add', methods=['GET', 'POST'])
@@ -58,9 +63,75 @@ def category_add():
                            )
 
 
-@app.route('/category/edit', methods=['GET', 'POST'])
+@app.route('/category/<int:id>/edit', methods=['GET', 'POST'])
 @login_required
-def category_edit():
-    """Edit a category"""
+def category_edit(id):
+    return "Edit Category: " + str(id)
 
-    return render_template("home.html", users=users)
+
+@app.route("/tag/<string:slug>", methods=["GET", "POST"])
+def tag(slug):
+    return "Return all items of selected tag: " + slug
+
+
+@app.route('/tag/add', methods=['GET', 'POST'])
+@login_required
+def tag_add():
+    return "Add Tag"
+
+
+@app.route('/tag/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
+def tag_edit(slug):
+    return "Edit tag: " + slug
+
+
+@app.route("/theme-author/<string:slug>", methods=["GET", "POST"])
+def theme_author(slug):
+    return "Return theme author: " + slug
+
+
+@app.route('/theme-author/add', methods=['GET', 'POST'])
+@login_required
+def theme_author_add():
+    return "Register a new theme author"
+
+
+@app.route('/theme-author/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
+def theme_author_edit(slug):
+    return "Edit theme author: " + slug
+
+
+@app.route("/license-type/<string:slug>", methods=["GET", "POST"])
+def license_type(slug):
+    return "Return License Type: " + slug
+
+
+@app.route('/license-type/add', methods=['GET', 'POST'])
+@login_required
+def license_type_add():
+    return "Register a new License Type"
+
+
+@app.route('/license-type/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
+def license_type_edit(slug):
+    return "Edit License Type: " + slug
+
+
+@app.route('/theme/<string:slug>')
+def theme_single(slug):
+    return "Return item: " + slug
+
+
+@app.route('/theme/add', methods=['GET', 'POST'])
+@login_required
+def theme_add():
+    return "Theme Add"
+
+
+@app.route('/theme/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
+def theme_edit(slug):
+    return "Edit item: " + slug

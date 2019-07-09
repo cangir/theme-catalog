@@ -31,12 +31,6 @@ class Category(db.Model):
             "count": self.count
         }
 
-    # Get all categories
-    def get_categories():
-        categories = db.session.query(Category) \
-            .order_by(Category.slug).all()
-        return categories
-
 
 class CategoryRelation(db.Model):
     """
