@@ -1,0 +1,35 @@
+@import '../variables';
+@import 'gdpr-cookie';
+@import 'preview';
+@import 'ui-go-to';
+
+.page-header {
+  position: relative;
+  overflow: hidden;
+
+  .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .page-title {
+    font-size: $h1-font-size * 1.5;
+    font-weight: 700;
+    color: #fff;
+    z-index: 9999;
+  }
+
+  svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .breadcrumb {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+}

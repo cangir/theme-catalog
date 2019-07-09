@@ -1,0 +1,19 @@
+<!-- from https://getbootstrap.com/docs/4.3/components/toasts/ -->
+
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000"
+    style="position: absolute; top: 0px; right: 0px;">
+    <div class="toast-header">
+        <strong class="mr-auto">Bootstrap</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+        {{ message }}
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}

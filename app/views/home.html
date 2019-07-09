@@ -1,0 +1,14 @@
+{% extends "_layouts/default.html" %}
+{% block page_title %}Free Web Templates{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row row-cards row-deck">
+        Free Web Templates Home Page
+
+        {% for item in users %}
+        {{ item.name }}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

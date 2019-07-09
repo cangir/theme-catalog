@@ -1,0 +1,44 @@
+.preview-bar {
+    height: 55px;
+    .btn-sm,
+    .small {
+      font-size: 0.8rem;
+    }
+    .btn-link {
+      text-decoration: none;
+    }
+  }
+  
+  .iframe-preview {
+    position: absolute;
+    height: calc(100% - 55px);
+    width: 100%;
+    border: none;
+    margin-top: 55px;
+  }
+
+  .iframe-preview-tablet {
+    width: 767px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .iframe-preview-mobile {
+    width: 375px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .border-bottom-primary {
+    border-bottom: 3px $primary solid;
+  }
+  
+  .responsive-toggler {
+    .nav-link {
+      color: $gray-400;
+      &.active {
+        color: $primary;
+      }
+    }
+  }
+  

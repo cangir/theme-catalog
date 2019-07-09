@@ -1,0 +1,176 @@
+/* GDPR Cookie dialog */
+.gdprcookie {
+  position: fixed;
+  color: white;
+  font-size: .8em;
+  line-height: 1.5em;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  max-width: 25em;
+  padding: 1rem;
+  background: black;
+}
+
+.gdprcookie h1,
+.gdprcookie h2 {
+  font-size: 1.2em;
+  margin-bottom: .5rem;
+}
+
+.gdprcookie h2 {
+  font-size: 1.2em;
+}
+
+.gdprcookie a {
+  color: inherit;
+}
+
+/* GDPR Cookie buttons */
+.gdprcookie-buttons {
+  text-align: center;
+}
+
+.gdprcookie-buttons button {
+  color: white;
+  font-family: inherit;
+  font-size: 1em;
+  padding: .4rem;
+  border: solid .05rem currentColor;
+  border-radius: .15rem;
+  margin: 0 .5rem;
+  background: none;
+  cursor: pointer;
+}
+
+.gdprcookie-buttons button:disabled {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* GDPR Cookie types */
+.gdprcookie-types ul {
+  overflow: hidden;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.gdprcookie-types li {
+  display: block;
+  list-style: none;
+  float: right;
+  width: 50%;
+  padding: 0;
+  margin: 0;
+}
+
+.gdprcookie-types input[type=checkbox] {
+  margin-left: .25rem;
+}
+
+.preview-bar {
+  height: 55px;
+}
+
+.preview-bar .btn-sm,
+.preview-bar .small {
+  font-size: 0.8rem;
+}
+
+.preview-bar .btn-link {
+  text-decoration: none;
+}
+
+.iframe-preview {
+  position: absolute;
+  height: calc(100% - 55px);
+  width: 100%;
+  border: none;
+  margin-top: 55px;
+}
+
+.iframe-preview-tablet {
+  width: 767px;
+  right: 50%;
+  -webkit-transform: translateX(50%);
+  transform: translateX(50%);
+}
+
+.iframe-preview-mobile {
+  width: 375px;
+  right: 50%;
+  -webkit-transform: translateX(50%);
+  transform: translateX(50%);
+}
+
+.border-bottom-primary {
+  border-bottom: 3px #2196F3 solid;
+}
+
+.responsive-toggler .nav-link {
+  color: #ced4da;
+}
+
+.responsive-toggler .nav-link.active {
+  color: #2196F3;
+}
+
+.ui-go-to {
+  position: fixed;
+  left: 25px;
+  bottom: -50px;
+  z-index: 100;
+  width: 2.75rem;
+  height: 2.75rem;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 50%;
+  opacity: 1;
+  transition: 0.3s ease-out;
+}
+
+.ui-go-to.show {
+  bottom: 25px;
+}
+
+.ui-go-to__inner {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  -webkit-transform: translate(50%, -50%);
+  transform: translate(50%, -50%);
+}
+
+.ui-go-to:hover, .ui-go-to:focus:hover {
+  color: #fff;
+  opacity: 0.84;
+}
+
+.page-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+.page-header .page-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  z-index: 9999;
+}
+
+.page-header svg {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.page-header .breadcrumb {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

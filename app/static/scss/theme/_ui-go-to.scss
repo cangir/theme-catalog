@@ -1,0 +1,34 @@
+.ui-go-to {
+    position: fixed;
+    right: 25px;
+    bottom: -50px;
+    z-index: 100;
+    width: 2.75rem;
+    height: 2.75rem;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 50%;
+    opacity: 1;
+    -webkit-transition: 0.3s ease-out;
+    -o-transition: 0.3s ease-out;
+    transition: 0.3s ease-out;
+  }
+  
+  .ui-go-to.show {
+    bottom: 25px;
+  }
+  
+  .ui-go-to__inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+  
+  .ui-go-to:hover, .ui-go-to:focus:hover {
+    color: #fff;
+    opacity: 0.84;
+  }

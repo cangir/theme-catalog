@@ -1,0 +1,57 @@
+#!/usr/bin/python3
+import os
+
+
+class Config(object):
+    """Coniguration Details"""
+    # Project details
+    CREATOR = "Ahmet Cangir"
+    APPLICATION_NAME = "Theme Catalog"
+    VERSION = "0.0.1"
+
+    # Application Details
+    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+    UPLOAD_FOLDER_PATH = "app/static/uploads"
+    ALLOWED_EXTENSIONS = set(['jpg'])
+
+    # Server details
+    PORT = 5000
+    DEBUG = True
+    HOST = "0.0.0.0"
+
+    # Set Character Encoding for JSON
+    JSON_AS_ASCII = False
+
+    # Secret key
+    SECRET_KEY = "My_Super_Secret_Key"
+
+    # Database Settings
+    #
+    # Choose one of the connection uris below.
+    # For more info related engines
+    # Read: https://docs.sqlalchemy.org/en/13/core/engines.html
+    DATABASE_NAME = "theme_catalog"
+    DATABASE_HOST = "localhost"
+    DATABASE_USERNAME = "username"
+    DATABASE_PASSWORD = "password"
+
+    # Database Connection Uri Strings
+    DB_SQLITE = "sqlite:///" + os.path\
+        .join(BASE_DIR, DATABASE_NAME + ".db?check_same_thread=False")
+    DB_MYSQL = "mysql://" + DATABASE_NAME + ":" + DATABASE_USERNAME + \
+        "@" + DATABASE_PASSWORD + "/" + DATABASE_NAME
+
+    # Database Connection Uri
+    SQLALCHEMY_DATABASE_URI = DB_SQLITE
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # Oauth Api and Secret Keys
+    #
+    # Get a Facebook API Key
+    # https://developers.facebook.com/
+    OAUTH_CREDENTIALS = {
+        "facebook": {
+            'id': 'app_id',
+            'secret': 'app_secret'
+        }
+    }
