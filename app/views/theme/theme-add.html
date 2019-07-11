@@ -8,9 +8,6 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-status bg-primary"></div>
-                    <div class="card-header">
-                        <h3 class="card-title">Add New Theme</h3>
-                    </div>
                     <div class="card-body">
                         <div class="form-group">
                             <label for="input_title">
@@ -18,8 +15,19 @@
                             </label>
                             <input id="input_title" type="text" name="title" class="form-control" placeholder="Title"
                                 maxlength="160" required>
+                            <div class="permalink pt-1 pl-3 small">
+                                <strong># Permalink:</strong>
+                                {{ url_for("home", _external=True) }}theme/
+                                <a data-toggle="collapse" href="#collapse_input_slug"></a>
+                                <button class="btn btn-sm btn-secondary ml-2" type="button" data-toggle="collapse"
+                                    data-target="#collapse_input_slug" aria-expanded="false"
+                                    aria-controls="collapse_input_slug">
+                                    Edit
+                                </button>
+                            </div>
+
                         </div>
-                        <div class="form-group">
+                        <div class="form-group collapse" id="collapse_input_slug">
                             <label for="input_slug">
                                 <strong>Slug:</strong>
                             </label>
@@ -37,8 +45,8 @@
                             <label for="input_description">
                                 <strong>Description:</strong>
                             </label>
-                            <textarea class="form-control" id="input_description" rows="4" placeholder="Description"
-                                name="description" maxlength="250" style="resize: none"></textarea>
+                            <textarea class="form-control" id="input_description" rows="3" placeholder="description"
+                                name="description" style="resize: none"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="input_features">
@@ -67,7 +75,7 @@
                                 <strong>Slogan:</strong>
                             </label>
                             <input id="input_slogan" type="text" name="slogan" class="form-control" placeholder="Slogan"
-                                maxlength="250">
+                                maxlength="80">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Category</label>
@@ -90,28 +98,28 @@
                                 <strong>Preview Url:</strong>
                             </label>
                             <input id="input_preview_url" type="text" name="preview_url" class="form-control"
-                                placeholder="Preview Url" maxlength="250">
+                                placeholder="Preview Url" maxlength="2048">
                         </div>
                         <div class="form-group">
                             <label for="download_url">
                                 <strong>Download Url:</strong>
                             </label>
                             <input id="input_download_url" type="text" name="download_url" class="form-control"
-                                placeholder="Download Url" maxlength="250">
+                                placeholder="Download Url" maxlength="2048">
                         </div>
                         <div class="form-group">
                             <label for="github_url">
                                 <strong>Github Url:</strong>
                             </label>
                             <input id="input_github_url" type="text" name="github_url" class="form-control"
-                                placeholder="Github Url" maxlength="250">
+                                placeholder="Github Url" maxlength="2048">
                         </div>
                         <div class="form-group">
                             <label for="license_url">
                                 <strong>License Url:</strong>
                             </label>
                             <input id="license_url" type="text" name="license_url" class="form-control"
-                                placeholder="License Url" maxlength="250">
+                                placeholder="License Url" maxlength="2048">
                         </div>
                         <div class="form-group">
                             <label class="form-label">License Type</label>
@@ -130,62 +138,75 @@
                             </select>
                         </div>
                     </div>
+                    <div class="card-footer">
+                        <div class="d-flex">
+                            <a href="{{ url_for("home") }}" class="btn btn-link text-danger">Cancel</a>
+                            <button type="submit" class="btn btn-primary ml-auto"><i class="fa fa-floppy-o mr-2"></i>Add
+                                Theme</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title font-weight-bold">Choose Categories</h3>
+                    <div class="card-header bg-light">
+                        <h3 class="card-title font-weight-bold">Actions</h3>
                         <div class="card-options">
                             <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i
                                     class="fe fe-chevron-up"></i></a>
                         </div>
                     </div>
-                    <div class="card-body">
-                    </div>
                     <div class="card-footer">
                         <div class="card-options d-flex">
-                            <a href="{{ url_for("home") }}" class="btn btn-secondary ml-auto"><i
+                            <a href="{{ url_for("home") }}" class="btn btn-secondary"><i
                                     class="fa fa-hand-o-left mr-2"></i>Cancel</a>
-                            <button type="submit" class="btn btn-primary ml-2">
-                                <i class="fa fa-floppy-o mr-2"></i>Save
-                            </button>
+                            <div class="ml-auto">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-floppy-o mr-2"></i> Save
+                                </button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title font-weight-bold">Images</h3>
+                        <h3 class="card-title font-weight-bold">Theme Preview Image</h3>
                         <div class="card-options">
                             <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i
                                     class="fe fe-chevron-up"></i></a>
                         </div>
                     </div>
-                    <div class="card-body">
-
+                    <div class="card-body p-1">
                         <div class="form-group">
-                            <div class="form-label">Theme Preview Image</div>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" name="image_preview">
                                 <label class="custom-file-label">Choose file</label>
                             </div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title font-weight-bold">Theme Screenshot Image</h3>
+                        <div class="card-options">
+                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i
+                                    class="fe fe-chevron-up"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body p-1">
                         <div class="form-group">
-                            <div class="form-label">Theme Screenshot Image</div>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" name="image_screenshot">
                                 <label class="custom-file-label">Choose file</label>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </form>
-
 <script>
     $(document).ready(function () {
         $('.custom-select').selectize({
@@ -196,6 +217,7 @@
             autoDownloadFontAwesome: false,
             element: document.getElementById('input_content')
         });
+
     });
 </script>
 {% endblock %}

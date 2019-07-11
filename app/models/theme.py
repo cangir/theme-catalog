@@ -12,6 +12,7 @@ from app.models.user import User
 from app.models.license_type import LicenseType
 from app.models.theme_author import ThemeAuthor
 import datetime
+from flask import jsonify
 
 
 class Theme(db.Model):
@@ -26,10 +27,10 @@ class Theme(db.Model):
     meta_title = db.Column(db.String(250))
     meta_description = db.Column(db.String(250))
     slogan = db.Column(db.String(250))
-    preview_url = db.Column(db.String(250))
-    download_url = db.Column(db.String(250))
-    github_url = db.Column(db.String(250))
-    license_url = db.Column(db.String(250))
+    preview_url = db.Column(db.String(2048))
+    download_url = db.Column(db.String(2048))
+    github_url = db.Column(db.String(2048))
+    license_url = db.Column(db.String(2048))
     date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     last_modified_at = db.Column(
         db.DateTime,
@@ -101,9 +102,73 @@ class Theme(db.Model):
             "download_url": self.download_url,
             "github_url": self.github_url,
             "license_url": self.license_url,
-            "license_type_id": self.license_type_id,
+            "license_type": {
+                "name": self.license_type.name,
+                "slug": self.license_type.slug
+            },
             "date": self.date,
             "last_modified_at": self.last_modified_at,
             "user_id": self.user_id,
-            "theme_author_id": self.theme_author_id
+            "theme_author": {
+                "id": self.theme_author.id,
+                "name": self.theme_author.name,
+                "slug": self.theme_author.slug
+            }
         }
+
+    def get_items_by_license_type_id(license_type_id):
+        """Get one category item by id or None
+
+        Argument:
+
+            id {integer}
+
+        Return:
+
+            Category item or None
+        """
+        items = db.session.query(Theme) \
+            .filter_by(license_type_id=license_type_id).all()
+        return items
+
+    def get_items_by_theme_author_id(theme_author_id):
+        """Get one category item by id or None
+
+        Argument:
+
+            id {integer}
+
+        Return:
+
+            Category item or None
+        """
+        items = db.session.query(Theme) \
+            .filter_by(theme_author_id=theme_author_id).all()
+        return items
+
+    def add(title,
+            slug,
+            description,
+            content,
+            features,
+            meta_title,
+            meta_description,
+            slogan,
+            preview_url,
+            download_url,
+            github_url,
+            license_url,
+            license_type_id,
+            date,
+            last_modified_at,
+            theme_author_id,
+            user_id):
+        item = Theme(
+            name=name,
+            slug=slug,
+            description=description,
+            count=count)
+        db.session.add(item)
+        db.session.commit()
+
+        return item

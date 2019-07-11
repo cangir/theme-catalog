@@ -8,10 +8,10 @@
         <div class="col-lg-8">
             <div class="card shadow">
                 <img class="card-img-top"
-                    src="/static/uploads/{{ item.theme_author.slug }}/{{ item.slug }}/{{ item.slug }}-preview.jpg"
+                    src="/static/uploads/{{ item.theme_author.slug }}/{{ item.slug }}/{{ item.slug }}-preview.jpg?{{ item.last_modified_at.strftime('%Y%m%d%H%M%S') }}"
                     alt="{{ item.title }}">
                 <div class="card-body d-flex flex-column">
-                    {{ item.content }}
+                    {{ item.content|markdown }}
                     <h5 class="mb-0">Features</h5>
                     <ul class="mb-0">
                         {{ item.features }}
@@ -20,7 +20,7 @@
             </div>
             <div class="card shadow">
                 <img class="card-img-top"
-                    src="/static/uploads/{{ item.theme_author.slug }}/{{ item.slug }}/{{ item.slug }}-screenshot.jpg"
+                    src="/static/uploads/{{ item.theme_author.slug }}/{{ item.slug }}/{{ item.slug }}-screenshot.jpg?{{ item.last_modified_at.strftime('%Y%m%d%H%M%S') }}"
                     alt="{{ item.title }}">
             </div>
         </div>

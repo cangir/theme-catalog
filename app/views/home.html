@@ -4,10 +4,8 @@
 {% block content %}
 <div class="container">
     <div class="row row-cards row-deck">
-        Free Web Templates Home Page
-
-        {% for item in users %}
-        {{ item.name }}
+        {% for item in items %}
+        {% include "_includes/loop-theme-list.html" %}
         {% endfor %}
     </div>
 </div>

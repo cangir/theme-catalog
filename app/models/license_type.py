@@ -103,3 +103,5 @@ class LicenseType(db.Model):
             count=count)
         db.session.add(item)
         db.session.commit()
+
+        return item

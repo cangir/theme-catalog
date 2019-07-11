@@ -104,6 +104,8 @@ class Tag(db.Model):
         db.session.add(item)
         db.session.commit()
 
+        return item
+
 
 class TagRelation(db.Model):
     __tablename__ = "tag_relation"

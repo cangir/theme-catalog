@@ -11,6 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager, Server
 from flask_login import LoginManager
 from config import Config
+from flaskext.markdown import Markdown
 
 app = Flask(__name__, template_folder="views")
 
@@ -32,6 +33,8 @@ login_manager.login_view = "login"
 manager = Manager(app)
 manager.add_command("runserver", Server(
     host=app.config['HOST'], port=app.config['PORT']))
+
+md = Markdown(app)
 
 db = SQLAlchemy(app)
 

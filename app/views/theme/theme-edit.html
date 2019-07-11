@@ -8,15 +8,16 @@
 
             <div class="col-md-8">
                 <div class="card">
+                    <div class="card-status bg-primary"></div>
                     <div class="card-body">
                         <div class="form-group">
                             <label for="input_title">
-                                <strong>Title:</strong>
+                                <strong>Title:<span class="form-required">*</span></strong>
                             </label>
                             <input id="input_title" type="text" name="title" class="form-control" placeholder="Title"
                                 value="{{ item.title }}" maxlength="160" required>
                             <div class="permalink pt-1 pl-3 small">
-                                <strong>Permalink:</strong>
+                                <strong># Permalink:</strong>
                                 {{ url_for("home", _external=True) }}theme/
                                 <a data-toggle="collapse" href="#collapse_input_slug">{{ item.slug }}</a>
                                 <button class="btn btn-sm btn-secondary ml-2" type="button" data-toggle="collapse"
@@ -106,34 +107,35 @@
                                 <strong>Preview Url:</strong>
                             </label>
                             <input id="input_preview_url" type="text" name="preview_url" class="form-control"
-                                placeholder="Preview Url" value="{{ item.preview_url }}" maxlength="250">
+                                placeholder="Preview Url" value="{{ item.preview_url }}" maxlength="2048">
                         </div>
                         <div class="form-group">
                             <label for="download_url">
                                 <strong>Download Url:</strong>
                             </label>
                             <input id="input_download_url" type="text" name="download_url" class="form-control"
-                                placeholder="Download Url" value="{{ item.download_url }}" maxlength="250">
+                                placeholder="Download Url" value="{{ item.download_url }}" maxlength="2048">
                         </div>
                         <div class="form-group">
                             <label for="github_url">
                                 <strong>Github Url:</strong>
                             </label>
                             <input id="input_github_url" type="text" name="github_url" class="form-control"
-                                placeholder="Github Url" value="{{ item.github_url }}" maxlength="250">
+                                placeholder="Github Url" value="{{ item.github_url }}" maxlength="2048">
                         </div>
                         <div class="form-group">
                             <label for="license_url">
                                 <strong>License Url:</strong>
                             </label>
                             <input id="license_url" type="text" name="license_url" class="form-control"
-                                placeholder="License Url" value="{{ item.license_url }}" maxlength="250">
+                                placeholder="License Url" value="{{ item.license_url }}" maxlength="2048">
                         </div>
                         <div class="form-group">
                             <label class="form-label">License Type</label>
-                            <select name="license_type" id="select_license_type" class="form-control custom-select">
+                            <select name="license_type" id="select_license_type" class="form-control custom-select"
+                                aria-required>
                                 {% for license_type in license_types %}
-                                {% if license_type == item.license_type_id %}
+                                {% if license_type.id == item.license_type_id %}
                                 <option value="{{ license_type.id }}" selected>{{ license_type.name }}</option>
                                 {% else %}
                                 <option value="{{ license_type.id }}">{{ license_type.name }}</option>
@@ -141,78 +143,100 @@
                                 {% endfor %}
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label class="form-label">Theme Author</label>
+                            <select name="theme_author" id="select_theme_author" class="form-control custom-select">
+                                {% for theme_author in theme_authors %}
+                                {% if theme_author == item.theme_author_id %}
+                                <option value="{{ theme_author.id }}" selected>{{ theme_author.name }}</option>
+                                {% else %}
+                                <option value="{{ theme_author.id }}">{{ theme_author.name }}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex">
+                            <a href="{{ url_for("home") }}" class="btn btn-link text-danger">Cancel</a>
+                            <button type="submit" class="btn btn-primary ml-auto"><i class="fa fa-floppy-o mr-2"></i>Add
+                                Theme</button>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title font-weight-bold">Publish</h3>
+                    <div class="card-header bg-light">
+                        <h3 class="card-title font-weight-bold">Actions</h3>
                         <div class="card-options">
                             <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i
                                     class="fe fe-chevron-up"></i></a>
                         </div>
                     </div>
-                    <div class="card-body">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste,
-                        itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem. A consequuntur,
-                        deserunt eaque error nulla temporibus!
-                    </div>
                     <div class="card-footer">
                         <div class="card-options d-flex">
-                            <a href="{{ url_for("theme_single", item_id=item.id) }}" class="btn btn-secondary btn-sm"><i
+                            <a href="{{ url_for("theme_single", slug=item.slug) }}" class="btn btn-secondary"><i
                                     class="fa fa-hand-o-left mr-2"></i>Cancel</a>
                             <div class="ml-auto">
-                                <button type="submit" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-floppy-o mr-2"></i> Save
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-floppy-o mr-2"></i>Save
                                 </button>
                             </div>
 
                         </div>
                     </div>
                 </div>
-
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title font-weight-bold">Images</h3>
+                        <h3 class="card-title font-weight-bold">Theme Preview Image</h3>
                         <div class="card-options">
                             <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i
                                     class="fe fe-chevron-up"></i></a>
                         </div>
                     </div>
-                    <div class="card-body">
-
+                    <div class="card-body p-2">
                         <div class="form-group">
-                            <div class="form-label">Theme Preview Image</div>
-                            <img src="/static/uploads/{{ item.theme_author.slug }}/{{ item.slug }}/{{ item.slug }}-preview.jpg"
-                                class="img-thumbnail mb-2" alt="Theme Preview Image">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" name="image_preview">
                                 <label class="custom-file-label">Choose file</label>
                             </div>
                         </div>
-
+                    </div>
+                    <img class="card-img-bottom mt-1"
+                        src="/static/uploads/{{ item.theme_author.slug }}/{{ item.slug }}/{{ item.slug }}-preview.jpg?{{ item.last_modified_at.strftime('%Y%m%d%H%M%S') }}"
+                        alt="Theme Preview Image">
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title font-weight-bold">Theme Screenshot Image</h3>
+                        <div class="card-options">
+                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i
+                                    class="fe fe-chevron-up"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body p-1">
                         <div class="form-group">
-                            <div class="form-label">Theme Screenshot Image</div>
-                            <img src="/static/uploads/{{ item.theme_author.slug }}/{{ item.slug }}/{{ item.slug }}-screenshot.jpg"
-                                class="img-thumbnail mb-2" alt="Theme Screenshot Image">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" name="image_screenshot">
                                 <label class="custom-file-label">Choose file</label>
                             </div>
                         </div>
-
                     </div>
+                    <img class="card-img-bottom"
+                        src="/static/uploads/{{ item.theme_author.slug }}/{{ item.slug }}/{{ item.slug }}-screenshot.jpg?{{ item.last_modified_at.strftime('%Y%m%d%H%M%S') }}"
+                        alt="Theme Screenshot Image">
                 </div>
             </div>
-
         </div>
     </div>
 </form>
 <script>
     $(document).ready(function () {
+
         $('.custom-select').selectize({
-            create: true
+            create: true,
+            placeholder: 'Please select ...'
         });
 
         new EasyMDE({

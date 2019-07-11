@@ -109,6 +109,8 @@ class Category(db.Model):
         db.session.add(item)
         db.session.commit()
 
+        return item
+
 
 class CategoryRelation(db.Model):
     """

@@ -16,7 +16,7 @@ class ThemeAuthor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), nullable=False)
     slug = db.Column(db.String(250), nullable=False)
-    github_username = db.Column(db.String(250), nullable=False)
+    github_username = db.Column(db.String(250))
     count = db.Column(db.Integer)
 
     def __init__(self, name, slug, github_username, count):
@@ -107,3 +107,5 @@ class ThemeAuthor(db.Model):
             count=count)
         db.session.add(item)
         db.session.commit()
+
+        return item
