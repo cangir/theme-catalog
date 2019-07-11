@@ -140,8 +140,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex">
-                            <a href="{{ url_for("home") }}" class="btn btn-link text-danger">Cancel</a>
-                            <button type="submit" class="btn btn-primary ml-auto"><i class="fa fa-floppy-o mr-2"></i>Add
+                            <a href="{{ url_for("home") }}" class="btn btn-link text-dark">Cancel</a>
+                            <button type="submit" class="btn btn-primary ml-auto"><i class="fe fe-save mr-2"></i>Add
                                 Theme</button>
                         </div>
                     </div>
@@ -158,11 +158,10 @@
                     </div>
                     <div class="card-footer">
                         <div class="card-options d-flex">
-                            <a href="{{ url_for("home") }}" class="btn btn-secondary"><i
-                                    class="fa fa-hand-o-left mr-2"></i>Cancel</a>
+                            <a href="{{ url_for("home") }}" class="btn btn-link text-dark">Cancel</a>
                             <div class="ml-auto">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-floppy-o mr-2"></i> Save
+                                    <i class="fe fe-save mr-2"></i> Save
                                 </button>
                             </div>
 
@@ -177,14 +176,16 @@
                                     class="fe fe-chevron-up"></i></a>
                         </div>
                     </div>
-                    <div class="card-body p-1">
+                    <div class="card-body p-2">
                         <div class="form-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="image_preview">
+                                <input type="file" class="custom-file-input" id="image_preview" name="image_preview">
                                 <label class="custom-file-label">Choose file</label>
                             </div>
                         </div>
                     </div>
+                    <img id="image_preview_img" class="card-img-bottom mt-1" src="/static/img/no-image.svg?v=0.2"
+                        alt="Theme Preview Image">
                 </div>
                 <div class="card">
                     <div class="card-header">
@@ -197,11 +198,14 @@
                     <div class="card-body p-1">
                         <div class="form-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="image_screenshot">
+                                <input type="file" class="custom-file-input" id="image_screenshot"
+                                    name="image_screenshot">
                                 <label class="custom-file-label">Choose file</label>
                             </div>
                         </div>
                     </div>
+                    <img id="image_screenshot_img" class="card-img-bottom" src="/static/img/no-image.svg?v=0.2"
+                        alt="Theme Screenshot Image">
                 </div>
             </div>
         </div>
@@ -214,8 +218,38 @@
         });
 
         new EasyMDE({
-            autoDownloadFontAwesome: false,
-            element: document.getElementById('input_content')
+            autoDownloadFontAwesome: true,
+            element: document.getElementById('input_content'),
+        });
+
+
+
+        function readImagePreviewURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image_preview_img').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#image_preview").change(function () {
+            readImagePreviewURL(this);
+        });
+
+        function readImageScreenshotURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image_screenshot_img').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#image_screenshot").change(function () {
+            readImageScreenshotURL(this);
         });
 
     });

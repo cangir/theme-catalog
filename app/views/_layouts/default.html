@@ -38,17 +38,21 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                <a class="dropdown-item" href="{{ url_for("theme_add") }}">
+                                    <i class="dropdown-icon fe fe-plus-circle mr-2"></i>Add New Theme
+                                </a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url_for("category_add") }}">
-                                    <i class="dropdown-icon fe fe-plus mr-2"></i>Categories
+                                    <i class="dropdown-icon fe fe-folder mr-2"></i>Categories
                                 </a>
                                 <a class="dropdown-item" href="{{ url_for("tag_add") }}">
-                                    <i class="dropdown-icon fe fe-plus mr-2"></i>Tags
+                                    <i class="dropdown-icon fe fe-tag mr-2"></i>Tags
                                 </a>
                                 <a class="dropdown-item" href="{{ url_for("license_type_add") }}">
-                                    <i class="dropdown-icon fe fe-plus mr-2"></i>License Types
+                                    <i class="dropdown-icon fe fe-book-open mr-2"></i>License Types
                                 </a>
                                 <a class="dropdown-item" href="{{ url_for("theme_author_add") }}">
-                                    <i class="dropdown-icon fe fe-plus mr-2"></i>Theme Authors
+                                    <i class="dropdown-icon fe fe-users mr-2"></i>Theme Authors
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url_for("logout") }}">
@@ -103,7 +107,7 @@
         </div>
     </footer>
     <a class="js-go-to ui-go-to" href="javascript:;">
-        <span class="fa fa-arrow-up ui-go-to__inner"></span>
+        <span class="fe fe-chevron-up ui-go-to__inner"></span>
     </a>
 </div>
 {% endblock %}

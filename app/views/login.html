@@ -13,15 +13,11 @@
           <div class="card" id="login-container">
             <div class="card-body d-flex flex-column text-center p-6">
               <h2>Please Login</h2>
-              <div class="text-muted">You can login via Facebook or Google</div>
+              <div class="text-muted">You can login via Facebook</div>
               <div class="button-container my-5">
                 <a class="btn btn-facebook btn-block mb-2" href="{{ url_for('oauth_authorize', provider='facebook') }}">
-                  <i class="fa fa-facebook mr-2"></i>
+                  <i class="fe fe-facebook mr-2"></i>
                   <span class="ml-4">Login via Facebook</span>
-                </a>
-                <a class="btn btn-google btn-block" href="{{ url_for('oauth_authorize', provider='google') }}">
-                  <i class="fa fa-google mr-2"></i>
-                  <span class="ml-3">Login via Google</span>
                 </a>
               </div>
             </div>
