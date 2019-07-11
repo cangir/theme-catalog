@@ -179,6 +179,28 @@ def remove_tag_relation(item_id):
         update_tag_count(relation.tag_id)
 
 
+def upload_theme_image(item, file, image_type):
+    filename = secure_filename(file.filename)
+    theme_author_upload_folder = os.path.join(
+        app.config['UPLOAD_FOLDER'],
+        item.theme_author.slug)
+    theme_upload_folder = os.path.join(
+        theme_author_upload_folder,
+        item.slug
+    )
+    filename_old = item.slug + '-' + image_type + '.jpg'
+    filename_old = os.path.join(
+        theme_upload_folder,
+        filename_old)
+    filename = rename_file(
+        secure_filename(file.filename),
+        item.slug + '-' + image_type)
+    if os.path.isfile(filename_old):
+        os.unlink(filename_old)
+    os.makedirs(theme_upload_folder, exist_ok=True)
+    file.save(os.path.join(theme_upload_folder, filename))
+
+
 @app.before_request
 def before_request_func():
     """Add Categories object to session"""
@@ -496,60 +518,28 @@ def theme_add():
             license_url=request.form.get('license_url'),
 
             license_type_id=request.form.get('license_type'),
-            date=datetime.datetime.utcnow(),
-            last_modified_at=datetime.datetime.utcnow(),
             theme_author_id=request.form.get('theme_author'),
             user_id=session["user_id"])
         db.session.add(item)
         db.session.commit()
 
         # Update Selected Theme's Count
-        update_theme_author_count(item.theme_author_id)
+        # update_theme_author_count(item.theme_author_id)
 
         # Update Selected Licence Type's count
-        update_license_type_count(item.license_type_id)
+        # update_license_type_count(item.license_type_id)
 
-        # # check if the post request has the file part
-        # if 'image_preview' not in request.files:
-        #     flash('No image_preview part')
-        #     return redirect(request.url)
-        # file = request.files['image_preview']
-        # # if user does not select file, browser also
-        # # submit a empty part without filename
-        # if file.filename == '':
-        #     flash('No selected file')
-        #     return redirect(request.url)
-        # if file and allowed_file(file.filename):
-        #     filename = rename_file(
-        #         secure_filename(file.filename),
-        #         slug + '-preview')
-        #     theme_upload_folder = os.path.join(
-        #         app.config['UPLOAD_FOLDER'],
-        #         theme_author.slug + '/' + slug)
-        #     # Create upload folder if not exists
-        #     os.makedirs(theme_upload_folder, exist_ok=True)
-        #     file.save(os.path.join(theme_upload_folder, filename))
+        # check if the post request has the file part
+        if 'image_preview' in request.files:
+            file = request.files['image_preview']
+            if file and allowed_file(file.filename):
+                upload_theme_image(item, file, 'preview')
 
-        # # check if the post request has the file part
-        # if 'image_screenshot' not in request.files:
-        #     flash('No image_screenshot part')
-        #     return redirect(request.url)
-        # file = request.files['image_screenshot']
-        # # if user does not select file, browser also
-        # # submit a empty part without filename
-        # if file.filename == '':
-        #     flash('No selected file')
-        #     return redirect(request.url)
-        # if file and allowed_file(file.filename):
-        #     filename = rename_file(
-        #         secure_filename(file.filename),
-        #         slug + '-screenshot')
-        #     theme_upload_folder = os.path.join(
-        #         app.config['UPLOAD_FOLDER'],
-        #         theme_author.slug + '/' + slug)
-        #     # Create upload folder if not exists
-        #     os.makedirs(theme_upload_folder, exist_ok=True)
-        #     file.save(os.path.join(theme_upload_folder, filename))
+        # check if the post request has the file part
+        if 'image_screenshot' in request.files:
+            file = request.files['image_screenshot']
+            if file and allowed_file(file.filename):
+                upload_theme_image(item, file, 'screenshot')
 
         add_or_update_category(request.form.getlist('category'), item.id)
         add_or_update_tag(request.form.getlist('tag'), item.id)
@@ -655,49 +645,13 @@ def theme_edit(item_id):
         if 'image_preview' in request.files:
             file = request.files['image_preview']
             if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                theme_author_upload_folder = os.path.join(
-                    app.config['UPLOAD_FOLDER'],
-                    item.theme_author.slug)
-                theme_upload_folder = os.path.join(
-                    theme_author_upload_folder,
-                    item.slug
-                )
-                filename_old = item.slug + '-preview.jpg'
-                filename_old = os.path.join(
-                    theme_upload_folder,
-                    filename_old)
-                filename = rename_file(
-                    secure_filename(file.filename),
-                    item.slug + '-preview')
-                if os.path.isfile(filename_old):
-                    os.unlink(filename_old)
-                os.makedirs(theme_upload_folder, exist_ok=True)
-                file.save(os.path.join(theme_upload_folder, filename))
+                upload_theme_image(item, file, 'preview')
 
         # check if the post request has the file part
         if 'image_screenshot' in request.files:
             file = request.files['image_screenshot']
             if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                theme_author_upload_folder = os.path.join(
-                    app.config['UPLOAD_FOLDER'],
-                    item.theme_author.slug)
-                theme_upload_folder = os.path.join(
-                    theme_author_upload_folder,
-                    item.slug
-                )
-                filename_old = item.slug + '-screenshot.jpg'
-                filename_old = os.path.join(
-                    theme_upload_folder,
-                    filename_old)
-                filename = rename_file(
-                    secure_filename(file.filename),
-                    item.slug + '-screenshot')
-                if os.path.isfile(filename_old):
-                    os.unlink(filename_old)
-                os.makedirs(theme_upload_folder, exist_ok=True)
-                file.save(os.path.join(theme_upload_folder, filename))
+                upload_theme_image(item, file, 'screenshot')
 
         add_or_update_category(request.form.getlist('category'), item_id)
         add_or_update_tag(request.form.getlist('tag'), item_id)

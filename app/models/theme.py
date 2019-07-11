@@ -61,8 +61,6 @@ class Theme(db.Model):
             github_url,
             license_url,
             license_type_id,
-            date,
-            last_modified_at,
             user_id,
             theme_author_id):
         self.title = title
@@ -78,8 +76,6 @@ class Theme(db.Model):
         self.github_url
         self.license_url
         self.license_type_id
-        self.date = date
-        self.last_modified_at = last_modified_at
         self.user_id = user_id
         self.theme_author_id = theme_author_id
 
