@@ -30,30 +30,6 @@ from app.libraries.image_handler import ImageHandler as img
 from config import Config
 
 
-def update_theme_author_count(theme_author_id):
-    """Count items"""
-    items_count = db.session.query(Theme) \
-        .filter_by(theme_author_id=theme_author_id).count()
-
-    """Update category count"""
-    item = db.session.query(ThemeAuthor).filter_by(id=theme_author_id).one()
-    item.count = items_count
-    db.session.add(item)
-    db.session.commit()
-
-
-def update_license_type_count(license_type_id):
-    """Count items"""
-    items_count = db.session.query(Theme) \
-        .filter_by(license_type_id=license_type_id).count()
-
-    """Update category count"""
-    item = db.session.query(LicenseType).filter_by(id=license_type_id).one()
-    item.count = items_count
-    db.session.add(item)
-    db.session.commit()
-
-
 @app.before_request
 def before_request_func():
     """Add Categories object to session"""
@@ -347,17 +323,12 @@ def theme_add():
     """Register new item"""
     if request.method == "POST":
 
-        title = request.form.get('title')
-        if title == "":
-            flash('Title can not be empty.')
-
         # Slugify the name if slug is empty
         slug = request.form.get('slug')
         if request.form.get('slug') == "":
             slug = slugify(request.form.get('title'))
 
-        # Add new item
-        item = Theme(
+        item = Theme.add(
             title=request.form.get('title'),
             slug=slug,
             description=request.form.get('description'),
@@ -366,23 +337,20 @@ def theme_add():
             meta_title=request.form.get('meta_title'),
             meta_description=request.form.get('meta_description'),
             slogan=request.form.get('slogan'),
-
             preview_url=request.form.get('preview_url'),
             download_url=request.form.get('download_url'),
             github_url=request.form.get('github_url'),
             license_url=request.form.get('license_url'),
-
             license_type_id=request.form.get('license_type'),
             theme_author_id=request.form.get('theme_author'),
-            user_id=session["user_id"])
-        db.session.add(item)
-        db.session.commit()
+            user_id=session["user_id"]
+        )
 
         # Update Selected Theme's Count
-        # update_theme_author_count(item.theme_author_id)
+        Theme.update_theme_author_count(item.theme_author_id)
 
         # Update Selected Licence Type's count
-        # update_license_type_count(item.license_type_id)
+        Theme.update_license_type_count(item.license_type_id)
 
         # check if the post request has the file part
         if 'image_preview' in request.files:
@@ -499,6 +467,12 @@ def theme_edit(item_id):
 
         db.session.add(item)
         db.session.commit()
+
+        # Update Selected Theme's Count
+        Theme.update_theme_author_count(item.theme_author_id)
+
+        # Update Selected Licence Type's count
+        Theme.update_license_type_count(item.license_type_id)
 
         # check if the post request has the file part
         if 'image_preview' in request.files:

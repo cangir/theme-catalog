@@ -201,3 +201,7 @@ class CategoryRelation(db.Model):
         items = db.session.query(CategoryRelation) \
             .filter_by(category_id=category_id).all()
         return items
+
+
+db.create_all()
+db.session.commit()

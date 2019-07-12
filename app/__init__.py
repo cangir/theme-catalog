@@ -12,11 +12,14 @@ from flask_script import Manager, Server
 from flask_login import LoginManager
 from config import Config
 from flaskext.markdown import Markdown
+from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__, template_folder="views")
 
 # Load Config Class
 app.config.from_object(Config)
+
+app.debug = app.config['DEBUG']
 
 # Strip whitespaces in Jinja Templates
 app.jinja_env.trim_blocks = True
@@ -24,7 +27,9 @@ app.jinja_env.lstrip_blocks = True
 
 # Define upload folder
 app.config['UPLOAD_FOLDER'] = os.path.join(
-    app.config['BASE_DIR'], app.config['UPLOAD_FOLDER_PATH'])
+    app.config['BASE_DIR'],
+    app.config['UPLOAD_FOLDER_PATH']
+)
 
 # Load login manager
 login_manager = LoginManager(app)
@@ -32,24 +37,13 @@ login_manager.login_view = "login"
 
 manager = Manager(app)
 manager.add_command("runserver", Server(
-    host=app.config['HOST'], port=app.config['PORT']))
+    host=app.config['HOST'],
+    port=app.config['PORT'])
+)
 
 md = Markdown(app)
 
 db = SQLAlchemy(app)
 
-from .models.user import User  # noqa: E402
-from .models.category import Category  # noqa: E402
-from .models.category import CategoryRelation  # noqa: E402
-from .models.tag import Tag  # noqa: E402
-from .models.tag import TagRelation  # noqa: E402
-from .models.license_type import LicenseType  # noqa: E402
-from .models.theme import Theme  # noqa: E402
-from .models.theme_author import ThemeAuthor  # noqa: E402
-
-# import Controllers
-from app.controllers import auth  # noqa: E402
-from app.controllers import main  # noqa: E402
-
-db.create_all()
-db.session.commit()
+# Debug Toolbar
+toolbar = DebugToolbarExtension(app)

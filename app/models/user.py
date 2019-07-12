@@ -37,3 +37,7 @@ class User(UserMixin, db.Model):
             "email": self.email,
             "avatar": self.avatar
         }
+
+
+db.create_all()
+db.session.commit()

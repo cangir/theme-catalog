@@ -71,11 +71,11 @@ class Theme(db.Model):
         self.meta_title = meta_title
         self.meta_description = meta_description
         self.slogan = slogan
-        self.preview_url
-        self.download_url
-        self.github_url
-        self.license_url
-        self.license_type_id
+        self.preview_url = preview_url
+        self.download_url = download_url
+        self.github_url = github_url
+        self.license_url = license_url
+        self.license_type_id = license_type_id
         self.user_id = user_id
         self.theme_author_id = theme_author_id
 
@@ -147,6 +147,30 @@ class Theme(db.Model):
             .filter_by(theme_author_id=theme_author_id).all()
         return items
 
+    def update_theme_author_count(theme_author_id):
+        """Count items"""
+        items_count = db.session.query(Theme) \
+            .filter_by(theme_author_id=theme_author_id).count()
+
+        """Update category count"""
+        item = db.session.query(ThemeAuthor).filter_by(
+            id=theme_author_id).one()
+        item.count = items_count
+        db.session.add(item)
+        db.session.commit()
+
+    def update_license_type_count(license_type_id):
+        """Count items"""
+        items_count = db.session.query(Theme) \
+            .filter_by(license_type_id=license_type_id).count()
+
+        """Update category count"""
+        item = db.session.query(LicenseType).filter_by(
+            id=license_type_id).one()
+        item.count = items_count
+        db.session.add(item)
+        db.session.commit()
+
     def add(title,
             slug,
             description,
@@ -160,15 +184,29 @@ class Theme(db.Model):
             github_url,
             license_url,
             license_type_id,
-            date,
-            last_modified_at,
             theme_author_id,
             user_id):
         item = Theme(
-            name=name,
+            title=title,
             slug=slug,
             description=description,
-            count=count)
+            content=content,
+            features=features,
+            meta_title=meta_title,
+            meta_description=meta_description,
+            slogan=slogan,
+            preview_url=preview_url,
+            download_url=download_url,
+            github_url=github_url,
+            license_url=license_url,
+            license_type_id=license_type_id,
+            theme_author_id=theme_author_id,
+            user_id=user_id
+        )
         db.session.add(item)
         db.session.commit()
         return item
+
+
+db.create_all()
+db.session.commit()

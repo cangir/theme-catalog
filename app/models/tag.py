@@ -195,3 +195,7 @@ class TagRelation(db.Model):
         items = db.session.query(TagRelation) \
             .filter_by(tag_id=tag_id).all()
         return items
+
+
+db.create_all()
+db.session.commit()

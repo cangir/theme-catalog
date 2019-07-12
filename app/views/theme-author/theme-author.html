@@ -1,0 +1,12 @@
+{% extends "_layouts/default.html" %}
+{% block page_title %}Theme Author: {{ theme_author.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row row-cards row-deck">
+        {% for item in items %}
+        {% include "_includes/loop-theme-list.html" %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

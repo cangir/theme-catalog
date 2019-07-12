@@ -105,3 +105,7 @@ class LicenseType(db.Model):
         db.session.commit()
 
         return item
+
+
+db.create_all()
+db.session.commit()
