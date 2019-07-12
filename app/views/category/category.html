@@ -5,6 +5,7 @@
 <div class="container">
     <div class="row row-cards row-deck">
         {% for item in items %}
+        {% set item = item.theme %}
         {% include "_includes/loop-theme-list.html" %}
         {% endfor %}
     </div>

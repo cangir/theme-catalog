@@ -123,7 +123,8 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">License Type</label>
-                            <select name="license_type" id="select_license_type" class="form-control custom-select">
+                            <select name="license_type" id="select_license_type" class="form-control custom-select"
+                                multiple>
                                 {% for license_type in license_types %}
                                 <option value="{{ license_type.id }}">{{ license_type.name }}</option>
                                 {% endfor %}
@@ -131,7 +132,8 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Theme Author</label>
-                            <select name="theme_author" id="select_theme_author" class="form-control custom-select">
+                            <select name="theme_author" id="select_theme_author"
+                                class="form-control custom-select selectize-select" multiple>
                                 {% for theme_author in theme_authors %}
                                 <option value="{{ theme_author.id }}">{{ theme_author.name }}</option>
                                 {% endfor %}
@@ -211,47 +213,4 @@
         </div>
     </div>
 </form>
-<script>
-    $(document).ready(function () {
-        $('.custom-select').selectize({
-            create: true
-        });
-
-        new EasyMDE({
-            autoDownloadFontAwesome: true,
-            element: document.getElementById('input_content'),
-        });
-
-
-
-        function readImagePreviewURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#image_preview_img').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        $("#image_preview").change(function () {
-            readImagePreviewURL(this);
-        });
-
-        function readImageScreenshotURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#image_screenshot_img').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        $("#image_screenshot").change(function () {
-            readImageScreenshotURL(this);
-        });
-
-    });
-</script>
 {% endblock %}

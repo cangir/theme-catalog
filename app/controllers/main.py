@@ -26,69 +26,8 @@ from app.models.tag import TagRelation
 from app.models.license_type import LicenseType
 from app.models.theme import Theme
 from app.models.theme_author import ThemeAuthor
+from app.libraries.image_handler import ImageHandler as img
 from config import Config
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower(
-           ) in app.config['ALLOWED_EXTENSIONS']
-
-
-def rename_file(filename, new_filename):
-    return new_filename + '.' + filename.rsplit('.', 1)[1].lower()
-
-
-def add_or_update_category(categories, item_id):
-    # Remove item's category relations
-    remove_category_relation(item_id)
-
-    for category in categories:
-        category_slug = slugify(category)
-        category_exists = db.session.query(Category.id) \
-            .filter_by(slug=category_slug).scalar() is not None
-        if not category_exists:
-            # Add new category to database
-            new_category = Category(
-                name=category,
-                slug=category_slug,
-                description="",
-                count=0)
-            db.session.add(new_category)
-            db.session.commit()
-            category_id = new_category.id
-        else:
-            category_id = Category.get_item_by_slug(category_slug).id
-        # Add category relation
-        add_category_relation(category_id, item_id)
-        # Update category count
-        update_category_count(category_id)
-
-
-def add_or_update_tag(tags, item_id):
-    """Add or update tag and relate with item"""
-    # Remove item's tag relations
-    remove_tag_relation(item_id)
-
-    for tag in tags:
-        tag_slug = slugify(tag)
-        tag_exists = db.session.query(Tag.id) \
-            .filter_by(slug=tag_slug).scalar() is not None
-        if not tag_exists:
-            # Add new tag to database
-            new_tag = Tag(
-                name=tag,
-                slug=tag_slug,
-                count=0)
-            db.session.add(new_tag)
-            db.session.commit()
-            tag_id = new_tag.id
-        else:
-            tag_id = Tag.get_item_by_slug(tag_slug).id
-        # Add tag relation
-        add_tag_relation(tag_id, item_id)
-        # Update tag count
-        update_tag_count(tag_id)
 
 
 def update_theme_author_count(theme_author_id):
@@ -115,92 +54,6 @@ def update_license_type_count(license_type_id):
     db.session.commit()
 
 
-def update_category_count(category_id):
-    """Count items"""
-    items_count = db.session.query(CategoryRelation) \
-        .filter_by(category_id=category_id).count()
-
-    """Update category count"""
-    category = db.session.query(Category).filter_by(id=category_id).one()
-    category.count = items_count
-    db.session.add(category)
-    db.session.commit()
-
-
-def add_category_relation(category_id, theme_id):
-    """Update category count"""
-    new_category_relation = CategoryRelation(
-        category_id=category_id,
-        theme_id=theme_id)
-    db.session.add(new_category_relation)
-    db.session.commit()
-
-
-def remove_category_relation(item_id):
-    item_relations = db.session.query(CategoryRelation) \
-        .filter_by(theme_id=item_id).all()
-
-    for relation in item_relations:
-        db.session.delete(relation)
-        db.session.commit()
-        # Update category count
-        update_category_count(relation.category_id)
-
-
-def update_tag_count(tag_id):
-    """Count items"""
-    items_count = db.session.query(TagRelation) \
-        .filter_by(tag_id=tag_id).count()
-
-    """Update tag count"""
-    tag = db.session.query(Tag).filter_by(id=tag_id).one()
-    tag.count = items_count
-    db.session.add(tag)
-    db.session.commit()
-
-
-def add_tag_relation(tag_id, theme_id):
-    # Add tag relation
-    new_item = TagRelation(
-        tag_id=tag_id,
-        theme_id=theme_id)
-    db.session.add(new_item)
-    db.session.commit()
-
-
-def remove_tag_relation(item_id):
-    item_relations = db.session.query(TagRelation) \
-        .filter_by(theme_id=item_id).all()
-
-    for relation in item_relations:
-        db.session.delete(relation)
-        db.session.commit()
-        # Update tag count
-        update_tag_count(relation.tag_id)
-
-
-def upload_theme_image(item, file, image_type):
-    filename = secure_filename(file.filename)
-    theme_author_upload_folder = os.path.join(
-        app.config['UPLOAD_FOLDER'],
-        item.theme_author.slug)
-    theme_upload_folder = os.path.join(
-        theme_author_upload_folder,
-        item.slug
-    )
-    filename_old = item.slug + '-' + image_type + '.jpg'
-    filename_old = os.path.join(
-        theme_upload_folder,
-        filename_old)
-    filename = rename_file(
-        secure_filename(file.filename),
-        item.slug + '-' + image_type)
-    if os.path.isfile(filename_old):
-        os.unlink(filename_old)
-    os.makedirs(theme_upload_folder, exist_ok=True)
-    file.save(os.path.join(theme_upload_folder, filename))
-
-
 @app.before_request
 def before_request_func():
     """Add Categories object to session"""
@@ -220,7 +73,9 @@ def home():
     # items = db.session.query(Theme).all()
     items = db.session.query(CategoryRelation) \
         .group_by(CategoryRelation.theme_id).all()
-    return render_template("home.html", items=items)
+    return render_template(
+        "home.html",
+        items=items)
 
 
 @app.route("/test")
@@ -532,17 +387,21 @@ def theme_add():
         # check if the post request has the file part
         if 'image_preview' in request.files:
             file = request.files['image_preview']
-            if file and allowed_file(file.filename):
-                upload_theme_image(item, file, 'preview')
+            if file != '' and img.allowed_file(file.filename):
+                img.upload_theme_image(item, file, 'preview')
 
         # check if the post request has the file part
         if 'image_screenshot' in request.files:
             file = request.files['image_screenshot']
-            if file and allowed_file(file.filename):
-                upload_theme_image(item, file, 'screenshot')
+            if file != '' and img.allowed_file(file.filename):
+                img.upload_theme_image(item, file, 'screenshot')
 
-        add_or_update_category(request.form.getlist('category'), item.id)
-        add_or_update_tag(request.form.getlist('tag'), item.id)
+        Category.add_or_update_category(
+            request.form.getlist('category'),
+            item.id)
+        Tag.add_or_update_tag(
+            request.form.getlist('tag'),
+            item.id)
 
     return render_template("theme/theme-add.html",
                            categories=Category.get_items(),
@@ -634,8 +493,8 @@ def theme_edit(item_id):
         # if item.last_modified_at != request.form.get('last_modified_at'):
         # item.last_modified_at = datetime.datetime.utcnow()
 
-        if item.theme_author != request.form.get('theme_author'):
-            item.theme_author_id = request.form.get('theme_author')
+        # if item.theme_author != request.form.get('theme_author'):
+        #     item.theme_author_id = request.form.get('theme_author')
         # item.user_id = session["user_id"]
 
         db.session.add(item)
@@ -644,32 +503,38 @@ def theme_edit(item_id):
         # check if the post request has the file part
         if 'image_preview' in request.files:
             file = request.files['image_preview']
-            if file and allowed_file(file.filename):
-                upload_theme_image(item, file, 'preview')
+            if file and img.allowed_file(file.filename):
+                img.upload_theme_image(item, file, 'preview')
 
         # check if the post request has the file part
         if 'image_screenshot' in request.files:
             file = request.files['image_screenshot']
-            if file and allowed_file(file.filename):
-                upload_theme_image(item, file, 'screenshot')
+            if file and img.allowed_file(file.filename):
+                img.upload_theme_image(item, file, 'screenshot')
 
-        add_or_update_category(request.form.getlist('category'), item_id)
-        add_or_update_tag(request.form.getlist('tag'), item_id)
+        Category.add_or_update_category(
+            request.form.getlist('category'),
+            item_id)
+        Tag.add_or_update_tag(
+            request.form.getlist('tag'),
+            item_id)
 
     item_categories = db.session.query(CategoryRelation.category_id) \
         .filter_by(theme_id=item_id).all()
     item_tags = db.session.query(TagRelation.tag_id) \
         .filter_by(theme_id=item_id).all()
 
-    return render_template("theme/theme-edit.html",
-                           item=item,
-                           categories=Category.get_items(),
-                           item_categories=json.dumps(item_categories),
-                           tags=Tag.get_items(),
-                           item_tags=json.dumps(item_tags),
-                           theme_authors=ThemeAuthor.get_items(),
-                           license_types=LicenseType.get_items()
-                           )
+    return render_template(
+        "theme/theme-edit.html",
+        item=item,
+        categories=Category.get_items(),
+        item_categories=json.dumps(item_categories),
+        tags=Tag.get_items(),
+        item_tags=json.dumps(item_tags),
+        theme_authors=ThemeAuthor.get_items(),
+        license_types=LicenseType.get_items(),
+        img_preview_exists=img.img_preview_exists(item),
+        img_screenshot_exists=img.img_screenshot_exists(item))
 
 
 @app.route('/theme/<int:item_id>/delete', methods=['GET', 'POST'])
@@ -694,3 +559,24 @@ def theme_single(slug):
                            item_categories=item_categories,
                            item_tags=item_tags,
                            categories=Category.get_items())
+
+
+# @app.route('/theme/<int:item_id>/img_preview', methods=['GET', 'POST'])
+# def theme_img_preview(item_id):
+#     item = Theme.get_item_or_none(item_id)
+#     img_url = app.config['IMAGE_NOT_FOUND']
+#     if item and img.img_preview_exists(item):
+#         img_url = img.theme_image_url(item, 'preview')
+#     # Return preview img_url or None
+#     return img_url
+
+
+# @app.route('/theme/<int:item_id>/img_screenshot', methods=['GET', 'POST'])
+# def theme_img_screenshot(item_id):
+#     item = Theme.get_item_or_none(item_id)
+#     if item and img.img_screenshot_exists(item):
+#         img_url = img.theme_image_url(item, 'screenshot')
+#     else:
+#         img_url = app.config['IMAGE_NOT_FOUND']
+#     # Return screenshot img_url or None
+#     return img_url

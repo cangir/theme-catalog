@@ -112,6 +112,11 @@ class Theme(db.Model):
             }
         }
 
+    def get_item_or_none(item_id):
+        item = db.session.query(Theme) \
+            .filter_by(id=item_id).one_or_none()
+        return item
+
     def get_items_by_license_type_id(license_type_id):
         """Get one category item by id or None
 
@@ -166,5 +171,4 @@ class Theme(db.Model):
             count=count)
         db.session.add(item)
         db.session.commit()
-
         return item

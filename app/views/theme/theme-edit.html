@@ -1,5 +1,7 @@
 {% extends "_layouts/default.html" %}
 {% block page_title %}Edit Theme: {{ item.title }}{% endblock %}
+{% set img_preview_url = '/static/uploads/' + item.theme_author.slug + '/' + item.slug + '/' + item.slug + '-preview.jpg?' + item.last_modified_at.strftime('%Y%m%d%H%M%S') %}
+{% set img_screenshot_url = '/static/uploads/' + item.theme_author.slug + '/' + item.slug + '/' + item.slug + '-screenshot.jpg?' + item.last_modified_at.strftime('%Y%m%d%H%M%S') %}
 
 {% block content %}
 <form method="POST" action="{{ url_for("theme_edit", item_id=item.id) }}" enctype="multipart/form-data">
@@ -132,25 +134,12 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">License Type</label>
-                            <select name="license_type" id="select_license_type" class="form-control custom-select"
-                                aria-required>
+                            <select name="license_type" id="select_license_type" class="form-control custom-select">
                                 {% for license_type in license_types %}
                                 {% if license_type.id == item.license_type_id %}
                                 <option value="{{ license_type.id }}" selected>{{ license_type.name }}</option>
                                 {% else %}
                                 <option value="{{ license_type.id }}">{{ license_type.name }}</option>
-                                {% endif %}
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Theme Author</label>
-                            <select name="theme_author" id="select_theme_author" class="form-control custom-select">
-                                {% for theme_author in theme_authors %}
-                                {% if theme_author == item.theme_author_id %}
-                                <option value="{{ theme_author.id }}" selected>{{ theme_author.name }}</option>
-                                {% else %}
-                                <option value="{{ theme_author.id }}">{{ theme_author.name }}</option>
                                 {% endif %}
                                 {% endfor %}
                             </select>
@@ -198,14 +187,17 @@
                     <div class="card-body p-2">
                         <div class="form-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="image_preview">
+                                <input type="file" class="custom-file-input" id="image_preview" name="image_preview">
                                 <label class="custom-file-label">Choose file</label>
                             </div>
                         </div>
                     </div>
-                    <img class="card-img-bottom mt-1"
-                        src="/static/uploads/{{ item.theme_author.slug }}/{{ item.slug }}/{{ item.slug }}-preview.jpg?{{ item.last_modified_at.strftime('%Y%m%d%H%M%S') }}"
+                    {% if img_preview_exists == True %}
+                    <img class="card-img-bottom mt-1" src="{{ img_preview_url }}" alt="Theme Preview Image">
+                    {% else %}
+                    <img id="image_preview_img" class="card-img-bottom mt-1" src="/static/img/no-image.svg?v=0.2"
                         alt="Theme Preview Image">
+                    {% endif %}
                 </div>
                 <div class="card">
                     <div class="card-header">
@@ -218,31 +210,21 @@
                     <div class="card-body p-1">
                         <div class="form-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="image_screenshot">
+                                <input type="file" class="custom-file-input" id="image_screenshot"
+                                    name="image_screenshot">
                                 <label class="custom-file-label">Choose file</label>
                             </div>
                         </div>
                     </div>
-                    <img class="card-img-bottom"
-                        src="/static/uploads/{{ item.theme_author.slug }}/{{ item.slug }}/{{ item.slug }}-screenshot.jpg?{{ item.last_modified_at.strftime('%Y%m%d%H%M%S') }}"
+                    {% if img_screenshot_exists == True %}
+                    <img class="card-img-bottom mt-1" src="{{ img_screenshot_url }}" alt="Theme Screenshot Image">
+                    {% else %}
+                    <img id="image_screenshot_img" class="card-img-bottom mt-1" src="/static/img/no-image.svg?v=0.2"
                         alt="Theme Screenshot Image">
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </form>
-<script>
-    $(document).ready(function () {
-
-        $('.custom-select').selectize({
-            create: true,
-            placeholder: 'Please select ...'
-        });
-
-        new EasyMDE({
-            autoDownloadFontAwesome: false,
-            element: document.getElementById('input_content')
-        });
-    });
-</script>
 {% endblock %}
