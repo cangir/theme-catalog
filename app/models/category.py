@@ -7,6 +7,7 @@
 # github: https://github.com/cangir
 # license: https://github.com/cangir/theme-catalog/blob/master/LICENSE
 
+from slugify import slugify
 from app import db
 from app.models.theme import Theme
 
@@ -108,8 +109,61 @@ class Category(db.Model):
             count=count)
         db.session.add(item)
         db.session.commit()
-
         return item
+
+    def update_category_count(category_id):
+        """Count items"""
+        items_count = db.session.query(CategoryRelation) \
+            .filter_by(category_id=category_id).count()
+
+        """Update category count"""
+        category = db.session.query(Category).filter_by(id=category_id).one()
+        category.count = items_count
+        db.session.add(category)
+        db.session.commit()
+
+    def add_category_relation(category_id, theme_id):
+        """Update category count"""
+        new_category_relation = CategoryRelation(
+            category_id=category_id,
+            theme_id=theme_id)
+        db.session.add(new_category_relation)
+        db.session.commit()
+
+    def remove_category_relation(item_id):
+        item_relations = db.session.query(CategoryRelation) \
+            .filter_by(theme_id=item_id).all()
+
+        for relation in item_relations:
+            db.session.delete(relation)
+            db.session.commit()
+            # Update category count
+            Category.update_category_count(relation.category_id)
+
+    def add_or_update_category(categories, item_id):
+        # Remove item's category relations
+        Category.remove_category_relation(item_id)
+
+        for category in categories:
+            category_slug = slugify(category)
+            category_exists = db.session.query(Category.id) \
+                .filter_by(slug=category_slug).scalar() is not None
+            if not category_exists:
+                # Add new category to database
+                new_category = Category(
+                    name=category,
+                    slug=category_slug,
+                    description="",
+                    count=0)
+                db.session.add(new_category)
+                db.session.commit()
+                category_id = new_category.id
+            else:
+                category_id = Category.get_item_by_slug(category_slug).id
+            # Add category relation
+            Category.add_category_relation(category_id, item_id)
+            # Update category count
+            Category.update_category_count(category_id)
 
 
 class CategoryRelation(db.Model):

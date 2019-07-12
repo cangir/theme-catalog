@@ -43,16 +43,11 @@
     <script src="{{ url_for('static', filename='lib/stringtoslug/stringtoslug.min.js') }}"></script>
     <script src="{{ url_for('static', filename='lib/waypoints/jquery.waypoints.min.js') }}"></script>
     <script src="{{ url_for('static', filename='lib/waypoints/shortcuts/sticky.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/core.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/core.js') }}?v=0.012"></script>
 </head>
 
 <body class="">
     {% block base_content %}{% endblock %}
-    <script>
-        $(document).ready(function () {
-            $('.toast').toast('show');
-        });
-    </script>
 </body>
 
 </html>

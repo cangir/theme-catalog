@@ -7,6 +7,7 @@
 # github: https://github.com/cangir
 # license: https://github.com/cangir/theme-catalog/blob/master/LICENSE
 
+from slugify import slugify
 from app import db
 from app.models.theme import Theme
 
@@ -105,6 +106,60 @@ class Tag(db.Model):
         db.session.commit()
 
         return item
+
+    def update_tag_count(tag_id):
+        """Count items"""
+        items_count = db.session.query(TagRelation) \
+            .filter_by(tag_id=tag_id).count()
+
+        """Update tag count"""
+        tag = db.session.query(Tag).filter_by(id=tag_id).one()
+        tag.count = items_count
+        db.session.add(tag)
+        db.session.commit()
+
+    def add_tag_relation(tag_id, theme_id):
+        # Add tag relation
+        new_item = TagRelation(
+            tag_id=tag_id,
+            theme_id=theme_id)
+        db.session.add(new_item)
+        db.session.commit()
+
+    def remove_tag_relation(item_id):
+        item_relations = db.session.query(TagRelation) \
+            .filter_by(theme_id=item_id).all()
+
+        for relation in item_relations:
+            db.session.delete(relation)
+            db.session.commit()
+            # Update tag count
+            Tag.update_tag_count(relation.tag_id)
+
+    def add_or_update_tag(tags, item_id):
+        """Add or update tag and relate with item"""
+        # Remove item's tag relations
+        Tag.remove_tag_relation(item_id)
+
+        for tag in tags:
+            tag_slug = slugify(tag)
+            tag_exists = db.session.query(Tag.id) \
+                .filter_by(slug=tag_slug).scalar() is not None
+            if not tag_exists:
+                # Add new tag to database
+                new_tag = Tag(
+                    name=tag,
+                    slug=tag_slug,
+                    count=0)
+                db.session.add(new_tag)
+                db.session.commit()
+                tag_id = new_tag.id
+            else:
+                tag_id = Tag.get_item_by_slug(tag_slug).id
+            # Add tag relation
+            Tag.add_tag_relation(tag_id, item_id)
+            # Update tag count
+            Tag.update_tag_count(tag_id)
 
 
 class TagRelation(db.Model):
