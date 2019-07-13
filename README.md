@@ -3,7 +3,7 @@ A simple web application that provides list of free web themes within a variety 
 Authenticated users have the ability to post, edit, and delete their own items.
 
 ## Preview
-![Theme Catalog preview](https://github.com/cangir/theme-catalog/blob/master/preview.jpg)
+![Theme Catalog preview](https://github.com/cangir/theme-catalog/blob/master/screenshots/preview.jpg)
 
 **[View Demo](https://cleanbootstrap.com)**
 *Please note that demo doesn't have authentication features. In order to see demo pages, you need to run the project. But you can still see the screenshots section.*
