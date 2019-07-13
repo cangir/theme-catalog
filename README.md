@@ -5,7 +5,7 @@ Authenticated users have the ability to post, edit, and delete their own items.
 
 ## Preview
 
-![Theme Catalog preview](https://github.com/cangir/utheme-catalog/blob/master/preview.jpg)
+![Theme Catalog preview](https://github.com/cangir/theme-catalog/blob/master/preview.jpg)
 
 **[View Demo](https://cleanbootstrap.com)**
 
