@@ -1,6 +1,6 @@
 {% set img_preview_url = '/static/uploads/' + item.theme_author.slug + '/' + item.slug + '/' + item.slug + '-preview.jpg?' + item.last_modified_at.strftime('%Y%m%d%H%M%S') %}
 
-<div class="col-sm-6 col-md-4">
+<div class="col-sm-12 col-md-6 col-lg-4">
     <div class="card">
         <a href="{{ url_for("theme_single", slug=item.slug) }}">
             <img class="card-img-top" src="{{ img_preview_url }}" alt="{{ item.title }}">

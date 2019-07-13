@@ -46,4 +46,4 @@ md = Markdown(app)
 db = SQLAlchemy(app)
 
 # Debug Toolbar
-toolbar = DebugToolbarExtension(app)
+# toolbar = DebugToolbarExtension(app)
