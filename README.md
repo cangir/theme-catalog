@@ -52,10 +52,10 @@ Waypoints | https://github.com/imakewebthings/waypoints/ | [LICENSE](https://git
 
 ## Fonts & Images
 - Google Fonts: http://www.google.com/fonts
-- Pexels free photos: http://pexels.com
+- Startbootstrap: https://startbootstrap.com
 
 ## Release History
 - 0.0.1 - Initial Release
 
 ## License
-Licensed under [LICENSE](https://github.com/cangir/theme-catalog/blob/master/LICENSE) License.
+Licensed under [MIT](https://github.com/cangir/theme-catalog/blob/master/LICENSE) License.
