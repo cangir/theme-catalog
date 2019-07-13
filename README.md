@@ -36,10 +36,7 @@ Coming soon
 5. Finally run `python manage.py runserver`.
 6. Open `localhost:5000` in your web browser.
 
-## Release History
-- 0.0.1 - Initial Release
-
-### Credits
+## Credits
 First, let us take this opportunity to thank all the creative minds for their great products and hard work.
 
 Name | URL | License
@@ -53,9 +50,12 @@ Simplelightbox | https://simplelightbox.com/ | [LICENSE](https://github.com/andr
 JQuery.Easing | https://github.com/gdsmith/jquery.easing/ | [LICENSE](https://github.com/gdsmith/jquery.easing/blob/master/LICENSE)
 Waypoints | https://github.com/imakewebthings/waypoints/ | [LICENSE](https://github.com/imakewebthings/waypoints/blob/master/licenses.txt)
 
-### Fonts & Images
+## Fonts & Images
 - Google Fonts: http://www.google.com/fonts
 - Pexels free photos: http://pexels.com
+
+## Release History
+- 0.0.1 - Initial Release
 
 ## License
 Licensed under [LICENSE](https://github.com/cangir/theme-catalog/blob/master/LICENSE) License.
