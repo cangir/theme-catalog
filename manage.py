@@ -12,6 +12,7 @@ from app import manager
 # Import Controllers
 from app.controllers import auth
 from app.controllers import main
+from app.controllers import api
 
 # Run manager
 if __name__ == "__main__":

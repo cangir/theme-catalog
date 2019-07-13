@@ -8,7 +8,23 @@ Authenticated users have the ability to post, edit, and delete their own items.
 **[View Demo](https://cleanbootstrap.com)**
 
 ## Project Overview
-Coming soon
+This is the fourth project for the Udacity Full Stack Nanodegree. This project allows users to perform Create, Read, Update, and Delete operations.
+Logging in is not required in order to read the categories or items uploaded. But, users need to log in to access CRUD operations such as adding, editing and removing items.
+This program uses third-party auth with Facebook.
+
+Some of the technologies used to build this application include Flask, Bootsrap, Jinja2, and SQLite.
+Please see the [credits](https://github.com/cangir/theme-catalog#credits) section.
+
+
+## JSON Endpoints
+Endpoint | URL
+------------ | -------------
+Themes | /api/v1/themes
+Categories | /api/v1/categories
+Tags | /api/v1/tags
+License Types | /api/v1/license-types
+Theme Authors | /api/v1/theme-authors
+Users | /api/v1/users
 
 
 ## Requirements
