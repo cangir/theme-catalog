@@ -46,7 +46,6 @@ def page_not_found(e):
 @app.route("/")
 def home():
     """Render home page"""
-    # items = db.session.query(Theme).all()
     items = db.session.query(Theme).all()
     return render_template(
         "home.html",
@@ -57,6 +56,7 @@ def home():
 def test():
     items = db.session.query(Theme).all()
     return jsonify(themes=[item.serialize for item in items])
+    # return jsonify(themes=[item.serialize for item in items])
 
 
 @app.route('/category/add', methods=['GET', 'POST'])
@@ -327,8 +327,6 @@ def theme_add():
         if slug == "":
             slug = slugify(title)
 
-
-
         if db.session.query(Theme).filter_by(slug=slug).count() >= 1:
             flash('Please change slug. The same url exists!')
 
@@ -524,7 +522,37 @@ def theme_edit(item_id):
 @app.route('/theme/<int:item_id>/delete', methods=['GET', 'POST'])
 @login_required
 def theme_delete(item_id):
-    return "Delete item: "
+    """Remove an item"""
+
+    if request.method == "POST":
+        item = db.session.query(Theme).filter_by(id=item_id).one()
+        if item is not None:
+            item_id = item.id
+            item_theme_author = item.theme_author_id
+            item_license_type = item.license_type_id
+
+            # Update category relations and counts
+            Category.remove_category_relation(item_id)
+
+            # Update tag relations and counts
+            Tag.remove_tag_relation(item_id)
+
+            # Remove Item
+            db.session.delete(item)
+            db.session.commit()
+
+            # Update theme author items count
+            Theme.update_theme_author_count(item_theme_author)
+
+            # Update license types count
+            Theme.update_license_type_count(item_license_type)
+
+            return redirect(url_for("home"))
+
+    return render_template("theme/theme-single.html",
+                           term_id=term_id,
+                           item_id=item_id,
+                           item=item)
 
 
 @app.route('/theme/<string:slug>')

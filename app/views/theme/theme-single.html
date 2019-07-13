@@ -14,9 +14,7 @@
                 <div class="card-body d-flex flex-column">
                     {{ item.content|markdown }}
                     <h5 class="mb-0">Features</h5>
-                    <ul class="mb-0">
-                        {{ item.features }}
-                    </ul>
+                    {{ item.features|markdown }}
                 </div>
             </div>
             <div class="card shadow">

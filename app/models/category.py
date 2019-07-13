@@ -91,6 +91,11 @@ class Category(db.Model):
             .order_by(Category.slug).all()
         return items
 
+    def get_items_by_theme_id(theme_id):
+        items = db.session.query(CategoryRelation) \
+            .filter_by(theme_id=theme_id).all()
+        return items
+
     def add(name, slug, description, count=0):
         """Add category item
 
@@ -129,6 +134,8 @@ class Category(db.Model):
             theme_id=theme_id)
         db.session.add(new_category_relation)
         db.session.commit()
+        # Update category count
+        Category.update_category_count(category_id)
 
     def remove_category_relation(item_id):
         item_relations = db.session.query(CategoryRelation) \
@@ -162,8 +169,6 @@ class Category(db.Model):
                 category_id = Category.get_item_by_slug(category_slug).id
             # Add category relation
             Category.add_category_relation(category_id, item_id)
-            # Update category count
-            Category.update_category_count(category_id)
 
 
 class CategoryRelation(db.Model):

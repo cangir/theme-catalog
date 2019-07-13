@@ -44,6 +44,11 @@ $(document).ready(function () {
     element: document.getElementById('input_content')
   });
 
+  new EasyMDE({
+    autoDownloadFontAwesome: true,
+    element: document.getElementById('input_features')
+  });
+
   function readImagePreviewURL(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -74,27 +79,27 @@ $(document).ready(function () {
 
   // Go to Top
   var go2TopShowHide = (function () {
-    var $this = $('.js-go-to');
+    var $this = $('.go-to-top');
 
     $this.on("click", function (event) {
       event.preventDefault();
       $("html, body").animate({ scrollTop: 0 }, 600);
     });
 
-    var go2TopOperation = function () {
-      var CurrentWindowPosition = $(window).scrollTop();
+    var go_to_top = function () {
+      var current_windows_position = $(window).scrollTop();
 
-      if (CurrentWindowPosition > 400) {
+      if (current_windows_position > 400) {
         $this.addClass("show");
       } else {
         $this.removeClass("show");
       }
     };
 
-    go2TopOperation();
+    go_to_top();
 
     $(window).scroll(function () {
-      go2TopOperation();
+      go_to_top();
     });
   }());
 

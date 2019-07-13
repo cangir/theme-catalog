@@ -5,7 +5,7 @@
 <form method="POST" action="{{ url_for("theme_add") }}" enctype="multipart/form-data">
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-sm-12 col-lg-8 ">
                 <div class="card">
                     <div class="card-status bg-primary"></div>
                     <div class="card-body">
@@ -45,14 +45,15 @@
                             <label for="input_description">
                                 <strong>Description:</strong>
                             </label>
-                            <textarea class="form-control" id="input_description" rows="3" placeholder="description"
-                                name="description" style="resize: none" required="required"></textarea>
+                            <textarea class="form-control markdown" id="input_description" rows="3"
+                                placeholder="description" name="description" style="resize: none"
+                                required="required"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="input_features">
                                 <strong>Features:</strong>
                             </label>
-                            <textarea class="form-control" id="input_features" rows="10" placeholder="Features"
+                            <textarea class="form-control markdown" id="input_features" rows="10" placeholder="Features"
                                 name="features" style="resize: none"></textarea>
                         </div>
                         <div class="form-group">
@@ -151,7 +152,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-12 col-lg-4">
                 <div class="card">
                     <div class="card-header bg-light">
                         <h3 class="card-title font-weight-bold">Actions</h3>

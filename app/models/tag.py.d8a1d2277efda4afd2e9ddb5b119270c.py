@@ -130,7 +130,7 @@ class Tag(db.Model):
             theme_id=theme_id)
         db.session.add(new_item)
         db.session.commit()
-
+        
         # Update tag count
         Tag.update_tag_count(tag_id)
 
