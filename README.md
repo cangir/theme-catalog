@@ -33,11 +33,10 @@ Coming soon
 ## Instructions without Vagrant
 
 1. If you don't already have the latest version of python download it from the link in requirements.
-2. Download and install Vagrant and VirtualBox.
-3. Clone this repository.
-4. Navigate to the `theme-catalog` folder in your bash interface.
-5. Open bash terminal and install requirements with command `pip install -r requirements.txt`
-6. Finally run `python manage.py runserver`.
+2. Clone this repository.
+3. Navigate to the `theme-catalog` folder in your bash interface.
+4. Open bash terminal and install requirements with command `pip install -r requirements.txt`
+5. Finally run `python manage.py runserver`.
 
 
 
