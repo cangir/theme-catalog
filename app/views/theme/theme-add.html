@@ -46,7 +46,7 @@
                                 <strong>Description:</strong>
                             </label>
                             <textarea class="form-control" id="input_description" rows="3" placeholder="description"
-                                name="description" style="resize: none"></textarea>
+                                name="description" style="resize: none" required="required"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="input_features">
@@ -124,7 +124,8 @@
                         <div class="form-group">
                             <label class="form-label">License Type</label>
                             <select name="license_type" id="select_license_type" class="form-control custom-select"
-                                multiple>
+                                required="required">
+                                <option value="">Please select...</option>
                                 {% for license_type in license_types %}
                                 <option value="{{ license_type.id }}">{{ license_type.name }}</option>
                                 {% endfor %}
@@ -132,8 +133,9 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Theme Author</label>
-                            <select name="theme_author" id="select_theme_author"
-                                class="form-control custom-select selectize-select" multiple>
+                            <select name="theme_author" id="select_theme_author" class="form-control custom-select"
+                                required="required">
+                                <option value="">Please select...</option>
                                 {% for theme_author in theme_authors %}
                                 <option value="{{ theme_author.id }}">{{ theme_author.name }}</option>
                                 {% endfor %}

@@ -117,6 +117,11 @@ class Theme(db.Model):
             .filter_by(id=item_id).one_or_none()
         return item
 
+    def get_item_by_slug(slug):
+        item = db.session.query(Theme) \
+            .filter_by(slug=slug).one_or_none()
+        return item
+
     def get_items_by_license_type_id(license_type_id):
         """Get one category item by id or None
 

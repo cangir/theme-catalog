@@ -8,6 +8,7 @@
 
 import os
 import json
+import urllib
 from datetime import datetime
 import requests
 from slugify import slugify

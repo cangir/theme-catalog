@@ -47,8 +47,7 @@ def page_not_found(e):
 def home():
     """Render home page"""
     # items = db.session.query(Theme).all()
-    items = db.session.query(CategoryRelation) \
-        .group_by(CategoryRelation.theme_id).all()
+    items = db.session.query(Theme).all()
     return render_template(
         "home.html",
         items=items)
@@ -69,8 +68,8 @@ def category_add():
         # Define variables
         name = request.form.get('name')
         slug = request.form.get('slug')
-        if request.form.get('slug') == "":
-            slug = slugify(request.form.get('name'))
+        if slug == "":
+            slug = slugify(name)
         description = request.form.get('description')
 
         category_exists = Category.get_item_by_slug(slug) is not None
@@ -135,8 +134,8 @@ def tag_add():
         # Define variables
         name = request.form.get('name')
         slug = request.form.get('slug')
-        if request.form.get('slug') == "":
-            slug = slugify(request.form.get('name'))
+        if slug == "":
+            slug = slugify(name)
 
         tag_exists = Tag.get_item_by_slug(slug) is not None
         if not tag_exists:
@@ -198,8 +197,8 @@ def license_type_add():
         # Define variables
         name = request.form.get('name')
         slug = request.form.get('slug')
-        if request.form.get('slug') == "":
-            slug = slugify(request.form.get('name'))
+        if slug == "":
+            slug = slugify(name)
 
         license_type_exists = LicenseType.get_item_by_slug(slug) is not None
         if not license_type_exists:
@@ -260,8 +259,8 @@ def theme_author_add():
         # Define variables
         name = request.form.get('name')
         slug = request.form.get('slug')
-        if request.form.get('slug') == "":
-            slug = slugify(request.form.get('name'))
+        if slug == "":
+            slug = slugify(name)
         github_username = request.form.get('github_username')
 
         theme_author_exists = ThemeAuthor.get_item_by_slug(slug) is not None
@@ -322,11 +321,22 @@ def theme_author(slug):
 def theme_add():
     """Register new item"""
     if request.method == "POST":
-
+        title = request.form.get('title')
         # Slugify the name if slug is empty
         slug = request.form.get('slug')
-        if request.form.get('slug') == "":
-            slug = slugify(request.form.get('title'))
+        if slug == "":
+            slug = slugify(title)
+
+
+
+        if db.session.query(Theme).filter_by(slug=slug).count() >= 1:
+            flash('Please change slug. The same url exists!')
+
+        if request.form.get('license_type') == "":
+            flash('License type can not be empty')
+
+        if request.form.get('theme_author') == "":
+            flash('Theme author can not be empty')
 
         item = Theme.add(
             title=request.form.get('title'),
@@ -347,10 +357,10 @@ def theme_add():
         )
 
         # Update Selected Theme's Count
-        Theme.update_theme_author_count(item.theme_author_id)
+        # Theme.update_theme_author_count(item.theme_author_id)
 
         # Update Selected Licence Type's count
-        Theme.update_license_type_count(item.license_type_id)
+        # Theme.update_license_type_count(item.license_type_id)
 
         # check if the post request has the file part
         if 'image_preview' in request.files:

@@ -39,18 +39,6 @@ $(document).ready(function () {
     placeholder: "Please select ..."
   });
 
-  $('#select_license_type').selectize({
-    create: true,
-    placeholder: "Please select ...",
-    maxItems: 1
-  });
-
-  $('#select_theme_author').selectize({
-    create: true,
-    placeholder: "Please select ...",
-    maxItems: 1
-  });
-
   new EasyMDE({
     autoDownloadFontAwesome: true,
     element: document.getElementById('input_content')

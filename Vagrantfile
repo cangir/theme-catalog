@@ -25,25 +25,25 @@ Vagrant.configure("2") do |config|
 
     apt-get -y install python3 python3-pip
     pip3 install --upgrade pip
-    pip3 install flask packaging oauth2client redis passlib flask-httpauth
-    pip3 install sqlalchemy flask-sqlalchemy psycopg2-binary bleach requests
+
+    pip3 install flask
+    pip3 install flask-sqlalchemy
+    pip3 install packaging
+    pip3 install oauth2client
+    pip3 install redis
+    pip3 install passlib
+    pip3 install flask-httpauth
+    pip3 install sqlalchemy
+    pip3 install psycopg2-binary
+    pip3 install bleach
+    pip3 install requests
+    pip3 install flask-markdown
+    pip3 install flask_debugtoolbar
+    pip3 install python-slugify
 
     pip3 install -r /vagrant/requirements.txt
 
-    apt-get -y install python python-pip
-    pip2 install --upgrade pip
-    pip2 install flask packaging oauth2client redis passlib flask-httpauth
-    pip2 install sqlalchemy flask-sqlalchemy psycopg2-binary bleach requests
-
-    pip install -r /vagrant/requirements.txt
-
-    su postgres -c 'createuser -dRS vagrant'
-    su vagrant -c 'createdb'
-    su vagrant -c 'createdb news'
-    su vagrant -c 'createdb forum'
-    su vagrant -c 'psql forum -f /vagrant/forum/forum.sql'
-
-    vagrantTip="[35m[1mThe shared directory is located at /vagrant\\nTo access your shared files: cd /vagrant[m"
+    vagrantTip="The shared directory is located at /vagrant\\nTo access your shared files: cd /vagrant"
     echo -e $vagrantTip > /etc/motd
 
     wget http://download.redis.io/redis-stable.tar.gz
