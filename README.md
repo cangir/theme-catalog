@@ -25,16 +25,18 @@ Coming soon
 6. Once Vagrant installs necessary files use `vagrant ssh` to continue.
 7. If your command prompt does not start with vagrant after typing `vagrant ssh` then please try the `winpty vagrant ssh` on your Windows system.
 8. The command line will now start with vagrant. Here get into to the shared /vagrant folder by command `cd /vagrant`.
-9. Finally run `python3 manage.py runserver`.
-10. Open `localhost:5000` in your web browser.
+9. Rename `config.py.example` file to `config.py` and adjust if you need any change.
+10. Finally run `python3 manage.py runserver`.
+11. Open `localhost:5000` in your web browser.
 
 ## Instructions without Vagrant
 1. If you don't already have the latest version of python download it from the link in requirements.
 2. Clone this repository.
 3. Navigate to the `theme-catalog` folder in your bash interface.
 4. Open bash terminal and install requirements with command `pip install -r requirements.txt`
-5. Finally run `python manage.py runserver`.
-6. Open `localhost:5000` in your web browser.
+5. Rename `config.py.example` file to `config.py` and adjust if you need any change.
+6. Finally run `python manage.py runserver`.
+7. Open `localhost:5000` in your web browser.
 
 ## Credits
 First, let us take this opportunity to thank all the creative minds for their great products and hard work.
