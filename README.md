@@ -6,6 +6,7 @@ Authenticated users have the ability to post, edit, and delete their own items.
 ![Theme Catalog preview](https://github.com/cangir/theme-catalog/blob/master/screenshots/preview.jpg)
 
 **[View Demo](https://cleanbootstrap.com)**
+
 *Please note that demo doesn't have authentication features. In order to see demo pages, you need to run the project. But you can still see the screenshots section.*
 
 ## Project Overview
@@ -33,20 +34,26 @@ Users | /api/v1/users
 ### Home Page
 ![Home Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/home.jpg)
 
+
 ### Login Page
 ![Login Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/login.jpg)
+
 
 ### Category Page
 ![Category Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/category.jpg)
 
+
 ### Tag Page
 ![Tag Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/tag.jpg)
+
 
 ### License Types Page
 ![License Types Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/license_type.jpg)
 
+
 ### Theme Authors Page
 ![Theme Authors Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/theme_author.jpg)
+
 
 
 ## Requirements
