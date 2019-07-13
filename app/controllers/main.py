@@ -560,35 +560,16 @@ def theme_delete(item_id):
 def theme_single(slug):
     """Return an item"""
     item = db.session.query(Theme).filter_by(slug=slug).one()
-    item_categories = db.session.query(CategoryRelation.category) \
+    item_categories = db.session.query(CategoryRelation) \
         .filter_by(theme_id=item.id).all()
-    item_tags = db.session.query(TagRelation.tag) \
+    item_tags = db.session.query(TagRelation) \
         .filter_by(theme_id=item.id).all()
 
-    # flash('You were successfully logged in')
-    return render_template("theme/theme-single.html",
-                           item=item,
-                           item_categories=item_categories,
-                           item_tags=item_tags,
-                           categories=Category.get_items())
-
-
-# @app.route('/theme/<int:item_id>/img_preview', methods=['GET', 'POST'])
-# def theme_img_preview(item_id):
-#     item = Theme.get_item_or_none(item_id)
-#     img_url = app.config['IMAGE_NOT_FOUND']
-#     if item and img.img_preview_exists(item):
-#         img_url = img.theme_image_url(item, 'preview')
-#     # Return preview img_url or None
-#     return img_url
-
-
-# @app.route('/theme/<int:item_id>/img_screenshot', methods=['GET', 'POST'])
-# def theme_img_screenshot(item_id):
-#     item = Theme.get_item_or_none(item_id)
-#     if item and img.img_screenshot_exists(item):
-#         img_url = img.theme_image_url(item, 'screenshot')
-#     else:
-#         img_url = app.config['IMAGE_NOT_FOUND']
-#     # Return screenshot img_url or None
-#     return img_url
+    return render_template(
+        "theme/theme-single.html",
+        item=item,
+        categories=Category.get_items(),
+        item_categories=item_categories,
+        tags=Tag.get_items(),
+        item_tags=item_tags
+    )

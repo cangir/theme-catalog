@@ -11,10 +11,24 @@
         <div class="col-lg-8">
             <div class="card shadow">
                 <img class="card-img-top" src="{{ img_preview_url }}" alt="{{ item.title }}">
-                <div class="card-body d-flex flex-column">
+                <div class="card-body">
+                    <div class="item-categories text-center mb-4">
+                        {% for item in item_categories %}
+                        <span class="btn btn-dark btn-sm"><a href="{{ url_for("category", slug=item.category.slug) }}"
+                                class="text-light">{{ item.category.name }}</a></span>
+                        {% endfor %}
+                    </div>
+
+                    <h2 class="text-center">{{ item.title }}</h2>
                     {{ item.content|markdown }}
                     <h5 class="mb-0">Features</h5>
                     {{ item.features|markdown }}
+
+                    <span class="small mr-2">Tags:</span>
+                    {% for item in item_tags %}
+                    <span class="btn btn-secondary btn-sm"><a href="{{ url_for("tag", slug=item.tag.slug) }}"
+                            class="text-dark">{{ item.tag.name }}</a></span>
+                    {% endfor %}
                 </div>
             </div>
             <div class="card shadow">
@@ -27,12 +41,15 @@
                     <div class="d-flex justify-content-between small">
                         <span class="font-weight-bold">License</span>
                         <span><i class="fe fe-book-open mr-2"></i><a class="font-weight-bold"
-                                href="{{ item.license_url }}" target="_blank">MIT License</a></span>
+                                href="{{ item.license_url }}" target="_blank">{{ item.license_type.name }}</a></span>
                     </div>
                     <hr class="my-2">
                     <div class="d-flex justify-content-between small">
-                        <span class="font-weight-bold">Author</span>
-                        <span>{{ item.theme_author.name }}</span>
+                        <span class="font-weight-bold">Theme Author</span>
+                        <span>
+                            <a
+                                href="{{ url_for("theme_author", slug=item.theme_author.slug) }}">{{ item.theme_author.name }}</a>
+                        </span>
                     </div>
                     <hr class="my-2">
                     {% if item.preview_url %}
