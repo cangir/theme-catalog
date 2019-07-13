@@ -7,7 +7,11 @@ Authenticated users have the ability to post, edit, and delete their own items.
 
 **[View Demo](https://cleanbootstrap.com)**
 
-*Please note that demo doesn't have authentication features. In order to see demo pages, you need to run the project. But you can still see the screenshots section.*
+**Please note that:** *demo doesn't have authentication features.*
+
+*In order to see demo pages, you need to run the project.*
+
+*But you can still see the screenshots section.*
 
 ## Project Overview
 This is the fourth project for the Udacity Full Stack Nanodegree. This project allows users to perform Create, Read, Update, and Delete operations.
