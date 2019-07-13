@@ -27,6 +27,17 @@ Theme Authors | /api/v1/theme-authors
 Users | /api/v1/users
 
 
+## Screenshots
+Page | Image
+------------ | -------------
+Home Page | ![Home Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/home.jpg)
+Login Page | ![Login Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/login.jpg)
+Category Page | ![Category Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/category.jpg)
+Tag Page | ![Tag Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/tag.jpg)
+License Types Page | ![License Types Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/license_type.jpg)
+Theme Authors Page | ![Theme Authors Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/theme_author.jpg)
+
+
 ## Requirements
 - [Python 3](https://www.python.org/downloads/) - The code uses ver 3.7.3
 - [VirtualBox](https://www.virtualbox.org/) - An open source virtualiztion product. (Optional)
