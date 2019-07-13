@@ -19,7 +19,7 @@ Coming soon
 - [VirtualBox](https://www.virtualbox.org/) - An open source virtualiztion product. (Optional)
 - [Vagrant](https://www.vagrantup.com/) - A virtual environment builder and manager (Optional)
 
-## Instructions
+## Instructions using Vagrant
 
 1. If you don't already have the latest version of python download it from the link in requirements.
 2. Download and install Vagrant and VirtualBox.
@@ -29,6 +29,16 @@ Coming soon
 6. Once Vagrant installs necessary files use `vagrant ssh` to continue.
 7. The command line will now start with vagrant. Here get into to the shared /vagrant folder by command `cd /vagrant`.
 8. Finally run `python3 manage.py runserver`.
+
+## Instructions without Vagrant
+
+1. If you don't already have the latest version of python download it from the link in requirements.
+2. Download and install Vagrant and VirtualBox.
+3. Clone this repository.
+4. Navigate to the `theme-catalog` folder in your bash interface.
+5. Open bash terminal and install requirements with command `pip install -r requirements.txt`
+6. Finally run `python manage.py runserver`.
+
 
 
 ## Troubleshooting
