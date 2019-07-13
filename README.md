@@ -6,6 +6,7 @@ Authenticated users have the ability to post, edit, and delete their own items.
 ![Theme Catalog preview](https://github.com/cangir/theme-catalog/blob/master/preview.jpg)
 
 **[View Demo](https://cleanbootstrap.com)**
+*Please note that demo doesn't have authentication features. In order to see demo pages, you need to run the project. But you can still see the screenshots section.*
 
 ## Project Overview
 This is the fourth project for the Udacity Full Stack Nanodegree. This project allows users to perform Create, Read, Update, and Delete operations.
@@ -13,7 +14,7 @@ Logging in is not required in order to read the categories or items uploaded. Bu
 This program uses third-party auth with Facebook.
 
 Some of the technologies used to build this application include Flask, Bootsrap, Jinja2, and SQLite.
-Please see the [credits](https://github.com/cangir/theme-catalog#credits) section.
+Please see the [screenshots](https://github.com/cangir/theme-catalog#screenshots) section.
 
 
 ## JSON Endpoints
@@ -28,14 +29,24 @@ Users | /api/v1/users
 
 
 ## Screenshots
-Page | Image
------------- | -------------
-Home Page | ![Home Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/home.jpg)
-Login Page | ![Login Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/login.jpg)
-Category Page | ![Category Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/category.jpg)
-Tag Page | ![Tag Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/tag.jpg)
-License Types Page | ![License Types Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/license_type.jpg)
-Theme Authors Page | ![Theme Authors Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/theme_author.jpg)
+
+### Home Page
+![Home Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/home.jpg)
+
+### Login Page
+![Login Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/login.jpg)
+
+### Category Page
+![Category Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/category.jpg)
+
+### Tag Page
+![Tag Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/tag.jpg)
+
+### License Types Page
+![License Types Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/license_type.jpg)
+
+### Theme Authors Page
+![Theme Authors Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/theme_author.jpg)
 
 
 ## Requirements
