@@ -7,12 +7,6 @@ Authenticated users have the ability to post, edit, and delete their own items.
 
 **[View Demo](https://cleanbootstrap.com)**
 
-**Please note that:** *demo doesn't have authentication features.*
-
-*In order to see demo pages, you need to run the project.*
-
-*But you can still see the screenshots section.*
-
 ## Project Overview
 This is the fourth project for the Udacity Full Stack Nanodegree. This project allows users to perform Create, Read, Update, and Delete operations.
 Logging in is not required in order to read the categories or items uploaded. But, users need to log in to access CRUD operations such as adding, editing and removing items.
@@ -20,6 +14,10 @@ This program uses third-party auth with Facebook.
 
 Some of the technologies used to build this application include Flask, Bootsrap, Jinja2, and SQLite.
 Please see the [screenshots](https://github.com/cangir/theme-catalog#screenshots) section.
+
+**Please note that:** 
+1. *[The Demo](https://cleanbootstrap.com) doesn't have authentication features.*
+2. *In order to see demo pages, you need to run the project.*
 
 
 ## JSON Endpoints
@@ -65,12 +63,16 @@ Users | /api/v1/users
 - [VirtualBox](https://www.virtualbox.org/) - An open source virtualiztion product. (Optional)
 - [Vagrant](https://www.vagrantup.com/) - A virtual environment builder and manager (Optional)
 
-## Instructions using Vagrant
+## Instructions
+You can run the project whether installing and using vagrant which is optional or you can install requirements.txt and run the project in your local computer. In both ways **the database file and the demo content** is not shipped with the repository. Once the project runs, *the database* and the */static/uploads* folder will be created automatically.
+
+
+### Using Vagrant
 1. If you don't already have the latest version of python download it from the link in requirements.
 2. Download and install Vagrant and VirtualBox.
 3. Clone this repository.
 4. Navigate to the `theme-catalog` folder in your bash interface.
-5. Open bash terminal and launch the virtual machine with command `vagrant up`
+5. Open bash terminal and launch the virtual machine with command `vagrant up`. At first time normally it takes about 10-15 minutes to build vagrant. Please be patient.
 6. Once Vagrant installs necessary files use `vagrant ssh` to continue.
 7. If your command prompt does not start with vagrant after typing `vagrant ssh` then please try the `winpty vagrant ssh` on your Windows system.
 8. The command line will now start with vagrant. Here get into to the shared /vagrant folder by command `cd /vagrant`.
@@ -78,7 +80,7 @@ Users | /api/v1/users
 10. Finally run `python3 manage.py runserver`.
 11. Open `localhost:5000` in your web browser.
 
-## Instructions without Vagrant
+### Without Vagrant
 1. If you don't already have the latest version of python download it from the link in requirements.
 2. Clone this repository.
 3. Navigate to the `theme-catalog` folder in your bash interface.
