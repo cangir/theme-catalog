@@ -12,6 +12,7 @@ from flask_script import Manager, Server
 from flask_login import LoginManager
 from flaskext.markdown import Markdown
 from flask_debugtoolbar import DebugToolbarExtension
+from config import Config
 
 app = Flask(__name__, template_folder="views")
 
