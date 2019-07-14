@@ -10,7 +10,6 @@ from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager, Server
 from flask_login import LoginManager
-from config import Config
 from flaskext.markdown import Markdown
 from flask_debugtoolbar import DebugToolbarExtension
 

@@ -52,6 +52,6 @@ Vagrant.configure("2") do |config|
     make
     make install
 
-    echo "Done installing your virtual machine!"
+    echo "Done installing your virtual machine! Run command: vagrant ssh"
   SHELL
 end
