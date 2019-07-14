@@ -5,8 +5,6 @@ Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-16.04"
   config.vm.box_version = "= 2.3.5"
   config.vm.synced_folder ".", "/vagrant"
-  config.vm.network "forwarded_port", guest: 8000, host: 8000, host_ip: "127.0.0.1"
-  config.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
   config.vm.network "forwarded_port", guest: 5000, host: 5000, host_ip: "127.0.0.1"
 
   # Work around disconnected virtual network cable.
@@ -18,29 +16,11 @@ Vagrant.configure("2") do |config|
     apt-get -y update
 
     # Work around https://github.com/chef/bento/issues/661
-    # apt-get -qqy upgrade
-    DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+    apt-get -qqy upgrade
+    apt-get -qqy install make zip unzip postgresql
 
-    apt-get -y install make zip unzip postgresql
-
-    apt-get -y install python3 python3-pip
+    apt-get -qqy install python3 python3-pip
     pip3 install --upgrade pip
-
-    pip3 install flask
-    pip3 install flask-sqlalchemy
-    pip3 install packaging
-    pip3 install oauth2client
-    pip3 install redis
-    pip3 install passlib
-    pip3 install flask-httpauth
-    pip3 install sqlalchemy
-    pip3 install psycopg2-binary
-    pip3 install bleach
-    pip3 install requests
-    pip3 install flask-markdown
-    pip3 install flask_debugtoolbar
-    pip3 install python-slugify
-
     pip3 install -r /vagrant/requirements.txt
 
     vagrantTip="The shared directory is located at /vagrant\\nTo access your shared files: cd /vagrant"
