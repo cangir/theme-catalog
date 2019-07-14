@@ -16,10 +16,12 @@ Vagrant.configure("2") do |config|
     apt-get -y update
 
     # Work around https://github.com/chef/bento/issues/661
-    apt-get -qqy upgrade
-    apt-get -qqy install make zip unzip postgresql
+    # apt-get -qqy upgrade
+    DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
-    apt-get -qqy install python3 python3-pip
+    apt-get -y install make zip unzip postgresql
+
+    apt-get -y install python3 python3-pip
     pip3 install --upgrade pip
     pip3 install -r /vagrant/requirements.txt
 
