@@ -19,10 +19,11 @@ Vagrant.configure("2") do |config|
     # apt-get -qqy upgrade
     DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
-    apt-get -y install make zip unzip postgresql
-    apt-get -y install python3 python3-pip
+    apt-get -y install make zip unzip postgresql dos2unix
+    apt-get -y install python3 python3-pip 
 
     pip3 install --upgrade pip
+    
     pip3 install -r "/vagrant/requirements.txt"
 
     vagrantTip="The shared directory is located at /vagrant\\nTo access your shared files: cd /vagrant"
@@ -33,6 +34,8 @@ Vagrant.configure("2") do |config|
     cd redis-stable
     make
     make install
+
+    dos2unix */**
 
     echo "Done installing your virtual machine! Run command: vagrant ssh"
   SHELL
