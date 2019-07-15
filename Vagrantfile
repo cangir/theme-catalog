@@ -23,25 +23,6 @@ Vagrant.configure("2") do |config|
     apt-get -y install python3 python3-pip
 
     pip3 install --upgrade pip
-<<<<<<< HEAD
-=======
-
-    pip3 install flask
-    pip3 install flask-sqlalchemy
-    pip3 install packaging
-    pip3 install oauth2client
-    pip3 install redis
-    pip3 install passlib
-    pip3 install flask-httpauth
-    pip3 install sqlalchemy
-    pip3 install psycopg2-binary
-    pip3 install bleach
-    pip3 install requests
-    pip3 install flask-markdown
-    pip3 install flask_debugtoolbar
-    pip3 install python-slugify
-
->>>>>>> 78da9ecea1039e5b54988bd7dd6ae95be013a78d
     pip3 install -r "/vagrant/requirements.txt"
 
     vagrantTip="The shared directory is located at /vagrant\\nTo access your shared files: cd /vagrant"
