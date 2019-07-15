@@ -41,6 +41,14 @@ Users | /api/v1/users
 ![Login Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/login.jpg)
 
 
+### Theme Add Page
+![Theme Add Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/theme_add.jpg)
+
+
+### Theme Single Page
+![Theme Single Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/theme_single.jpg)
+
+
 ### Category Page
 ![Category Page](https://github.com/cangir/theme-catalog/blob/master/screenshots/category.jpg)
 
