@@ -35,7 +35,7 @@ Vagrant.configure("2") do |config|
     make
     make install
 
-    dos2unix */**
+    dos2unix /vagrant/*/**
 
     echo "Done installing your virtual machine! Run command: vagrant ssh"
   SHELL
