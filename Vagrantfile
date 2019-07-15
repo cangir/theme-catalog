@@ -19,9 +19,27 @@ Vagrant.configure("2") do |config|
     # apt-get -qqy upgrade
     DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
-    apt-get -y install make zip unzip postgresql python3 python3-pip
+    apt-get -y install make zip unzip postgresql
+    apt-get -y install python3 python3-pip
+
     pip3 install --upgrade pip
-    pip3 install -r /vagrant/requirements.txt
+
+    pip3 install flask
+    pip3 install flask-sqlalchemy
+    pip3 install packaging
+    pip3 install oauth2client
+    pip3 install redis
+    pip3 install passlib
+    pip3 install flask-httpauth
+    pip3 install sqlalchemy
+    pip3 install psycopg2-binary
+    pip3 install bleach
+    pip3 install requests
+    pip3 install flask-markdown
+    pip3 install flask_debugtoolbar
+    pip3 install python-slugify
+
+    pip3 install -r "/vagrant/requirements.txt"
 
     vagrantTip="The shared directory is located at /vagrant\\nTo access your shared files: cd /vagrant"
     echo -e $vagrantTip > /etc/motd

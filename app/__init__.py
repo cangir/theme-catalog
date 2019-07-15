@@ -41,6 +41,7 @@ manager.add_command("runserver", Server(
     port=app.config['PORT'])
 )
 
+
 md = Markdown(app)
 
 db = SQLAlchemy(app)
