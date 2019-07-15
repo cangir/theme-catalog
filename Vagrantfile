@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
 
     apt-get -y install make zip unzip postgresql python3 python3-pip
     pip3 install --upgrade pip
-    pip3 install -r /vagrant/requirements.txt
+    pip3 install -r "/vagrant/requirements.txt"
 
     vagrantTip="The shared directory is located at /vagrant\\nTo access your shared files: cd /vagrant"
     echo -e $vagrantTip > /etc/motd

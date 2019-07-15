@@ -92,16 +92,18 @@ You can run the project whether installing and using vagrant which is optional o
 ## Credits
 First, let us take this opportunity to thank all the creative minds for their great products and hard work.
 
-Name | URL | License
------------- | ------------- | -------------
-Bootstrap | https://getbootstrap.com | [LICENSE](https://github.com/twbs/bootstrap/blob/master/LICENSE)
-Tabler UI | https://github.com/tabler/tabler | [LICENSE](https://github.com/tabler/tabler/blob/master/LICENSE)
-Font Awesome | https://fontawesome.com | [LICENSE](https://fontawesome.com/v4.7.0/license/)
-Feather | https://feathericons.com/ | [LICENSE](https://github.com/feathericons/feather/blob/master/LICENSE)
-jQuery | http://jquery.com | [LICENSE](https://github.com/jquery/jquery/blob/master/LICENSE.txt)
-Simplelightbox | https://simplelightbox.com/ | [LICENSE](https://github.com/andreknieriem/simplelightbox/blob/master/LICENSE)
-JQuery.Easing | https://github.com/gdsmith/jquery.easing/ | [LICENSE](https://github.com/gdsmith/jquery.easing/blob/master/LICENSE)
-Waypoints | https://github.com/imakewebthings/waypoints/ | [LICENSE](https://github.com/imakewebthings/waypoints/blob/master/licenses.txt)
+Name | License
+------------ | -------------
+[jQuery](https://github.com/jquery/jquery) | [LICENSE](https://github.com/jquery/jquery/blob/master/LICENSE.txt)
+[Bootstrap](https://github.com/twbs/bootstrap) | [LICENSE](https://github.com/twbs/bootstrap/blob/master/LICENSE)
+[Tabler UI](https://github.com/tabler/tabler) | [LICENSE](https://github.com/tabler/tabler/blob/master/LICENSE)
+[Easing](https://github.com/gdsmith/jquery.easing/) | [LICENSE](https://github.com/gdsmith/jquery.easing/blob/master/LICENSE)
+[EasyMDE](https://github.com/Ionaru/easy-markdown-editor) | [LICENSE](https://github.com/Ionaru/easy-markdown-editor/blob/master/LICENSE)
+[Font Awesome 4.7.0](https://fontawesome.com/v4.7.0) | [LICENSE](/license/)
+[Feather](https://github.com/feathericons/feather) | [LICENSE](https://github.com/feathericons/feather/blob/master/LICENSE)
+[GDPR Cookie](https://github.com/thany/gdpr-cookie) | [LICENSE](https://github.com/thany/gdpr-cookie/blob/HEAD/LICENSE.md)
+[Selectize](https://github.com/selectize/selectize.js) | [LICENSE](https://github.com/selectize/selectize.js/blob/master/LICENSE)
+[Waypoints](https://github.com/imakewebthings/waypoints) | [LICENSE](https://github.com/imakewebthings/waypoints/blob/master/licenses.txt)
 
 ## Fonts & Images
 - Google Fonts: http://www.google.com/fonts
