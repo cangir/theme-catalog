@@ -31,7 +31,7 @@ Flask_Script == 2.0.6
 
 # app\controllers\main.py: 18
 # app\libraries\image_handler.py: 18
-Werkzeug == 0.15.3
+Werkzeug == 0.15.5
 
 # app\controllers\main.py: 14
 # app\libraries\image_handler.py: 14
