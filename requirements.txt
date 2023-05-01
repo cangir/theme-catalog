@@ -8,7 +8,7 @@
 # app\libraries\image_handler.py: 16
 # app\libraries\oauth.py: 8
 # app\models\theme.py: 15
-Flask == 1.0.2
+Flask == 2.3.2
 
 # app\__init__.py: 14
 Flask_DebugToolbar == 0.10.1
